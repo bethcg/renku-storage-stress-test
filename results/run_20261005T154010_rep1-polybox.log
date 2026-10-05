@@ -1,12 +1,8 @@
-[run] id=20261005T1253-e1ca tier=S reps=1 backends=['polybox'] seed=20261005
+[run] id=20261005T1701-c93e tier=S reps=2 backends=['polybox'] seed=20261005
 [run] results -> /home/renku/work/renku-storage-stress-test/results/S/elisabet-cap-52039ca53e6c-0_2026-10-05.jsonl
 [preflight] tier S needs ~22.7 GB per backend
   polybox  ok (rclone API reachable; free space not checked for object stores)
 
-[rep 1/1] order: polybox
+[rep 2/2] order: polybox
   [polybox] fio
-  [polybox] metadata
   [polybox] realistic
-  [polybox] ingress
-
-[run] done. Analyse with: python analysis/analyze.py /home/renku/work/renku-storage-stress-test/results/S

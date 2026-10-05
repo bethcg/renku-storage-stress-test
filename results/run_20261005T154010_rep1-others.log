@@ -1,0 +1,18 @@
+[run] id=20261005T1701-e7a3 tier=S reps=2 backends=['project', 'azure', 'local'] seed=20261005
+[run] results -> /home/renku/work/renku-storage-stress-test/results/S/elisabet-cap-52039ca53e6c-0_2026-10-05.jsonl
+[preflight] tier S needs ~22.7 GB per backend
+  project  ok: 59.9 GB free
+Traceback (most recent call last):
+  File "/home/renku/work/renku-storage-stress-test/scripts/run_all.py", line 137, in <module>
+    main()
+  File "/home/renku/work/renku-storage-stress-test/scripts/run_all.py", line 103, in main
+    preflight(backends, spec)
+  File "/home/renku/work/renku-storage-stress-test/scripts/run_all.py", line 53, in preflight
+    probe.write_text("ok")
+  File "/layers/paketo-buildpacks_conda-env-update/conda-env/lib/python3.11/pathlib.py", line 1078, in write_text
+    with self.open(mode='w', encoding=encoding, errors=errors, newline=newline) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/layers/paketo-buildpacks_conda-env-update/conda-env/lib/python3.11/pathlib.py", line 1044, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [Errno 5] Input/output error: '/home/renku/work/stress-test-azure/renku-stress/.write-probe'
