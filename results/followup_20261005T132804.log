@@ -1,1 +1,2 @@
 [chain] 2026-10-05T13:28:04Z start: waiting for PID 1046 (polybox rep 0)
+[chain] 2026-10-05T15:40:10Z chain shell stopped; superseded by resume_v3.sh (PolyBox W5 and W8 only in rep 0)
