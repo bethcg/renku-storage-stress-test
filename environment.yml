@@ -1,0 +1,17 @@
+name: renku-stress
+channels:
+  - conda-forge
+  - nodefaults          # the "defaults" channel is not allowed
+dependencies:
+  - python=3.11
+  - fio>=3.30
+  - rclone>=1.65        # only for out-of-band staging + remote-visibility checks
+  - numpy
+  - pandas
+  - pyarrow
+  - h5py
+  - pyyaml
+  - matplotlib
+  - psutil
+  - git
+  - sqlite

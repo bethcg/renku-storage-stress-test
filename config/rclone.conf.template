@@ -1,0 +1,24 @@
+# rclone remotes used ONLY to stage benchmark data out-of-band (straight to the cloud API,
+# bypassing the session mount). This keeps the node-side rclone VFS cache "cold", which is
+# how users experience data uploaded via the Azure portal or the PolyBox desktop client.
+#
+#   cp config/rclone.conf.template config/rclone.conf   # rclone.conf is git-ignored
+#   rclone --config config/rclone.conf lsd azure:        # sanity check
+#
+# Use the SAME credentials you gave the Renku data connectors. Never commit secrets.
+
+[azure]
+type = azureblob
+# Option A: container-scoped SAS URL (preferred; least privilege: r,w,d,l)
+sas_url = https://ACCOUNT.blob.core.windows.net/renku-stress?sv=...&sig=...
+# Option B: account + key
+# account = ACCOUNT
+# key = BASE64KEY
+
+[polybox]
+type = webdav
+vendor = nextcloud
+url = https://polybox.ethz.ch/remote.php/webdav/
+user = ETH_USERNAME
+# app password from PolyBox Settings -> Security, obscured with: rclone obscure 'APP_PASSWORD'
+pass = OBSCURED_APP_PASSWORD

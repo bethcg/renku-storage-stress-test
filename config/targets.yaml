@@ -1,0 +1,34 @@
+# Where each backend is visible inside the Renku session.
+# Run `findmnt` or `bash scripts/00_env_capture.sh` in the session to find the real paths,
+# then replace the placeholders below. Each path gets a `stress/` subfolder that the
+# scripts create and own; nothing outside it is touched.
+
+scratch: /tmp/stress-scratch        # session-local temp space used while generating data
+results_dir: results                # relative to the bundle root (committed to Git, never on a backend)
+
+targets:
+  project:                          # Renku project storage 
+    kind: block
+    path: /home/renku/work/renku-store    
+
+  azure:                            # Data connector: Azure Blob via rclone
+    kind: rclone
+    path: /home/renku/work/stress-test-azure/renku-stress    
+    rclone_remote: azure:stress-test-azure/renku-stress               
+    endpoint: https://elisabettestsa.blob.core.windows.net       
+    notes: "Standard, Hot, LRS, Switzerland North, HNS off"
+
+  polybox:                          # Data connector: PolyBox (WebDAV) via rclone
+    kind: rclone
+    path: /home/renku/work/stress-test-polybox  
+    rclone_remote: polybox:stress-test-polybox
+    endpoint: https://polybox.ethz.ch
+    notes: "dedicated test folder"
+
+
+  local:                            # Reference: the session's own disk (not persistent)
+    kind: local
+    path: /home/renku/work/
+
+# Backends a plain `run_all.sh` uses. Remove `local` if session disk is too small for the tier.
+default_backends: [project, azure, polybox, local]
