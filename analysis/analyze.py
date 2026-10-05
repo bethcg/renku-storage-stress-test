@@ -55,7 +55,35 @@ def load(paths: list[Path]) -> pd.DataFrame:
             df[k] = None
     df["profile"] = df["profile"].fillna("-")
     df["threads"] = df["threads"].fillna(1).astype(int)
-    return df
+    # Writes through an rclone mount return as soon as the local VFS cache has the data; the
+    # upload happens after close(). Headline write speed = bytes / (write time + time until the
+    # remote API shows the object). The cache-only figure is kept as cache_throughput_mb_s.
+    if "remote_visible_s" in df:
+        lag = df["remote_visible_s"]
+        has = df["duration_s"].notna() & lag.notna() & df["bytes"].notna()
+        df["cache_throughput_mb_s"] = np.where(has, df["throughput_mb_s"], np.nan)
+        df.loc[has, "throughput_mb_s"] = (df.loc[has, "bytes"] / 1e6 /
+                                          (df.loc[has, "duration_s"] + lag[has])).round(2)
+    return drop_superseded_crashes(df)
+
+
+# run_all records a crash under the step name, which may cover several workloads
+_STEP = {"fio": {"W1", "W2", "W3", "W4"}, "real": {"W6", "W7", "W8"}}
+
+
+def drop_superseded_crashes(df: pd.DataFrame) -> pd.DataFrame:
+    """Drop a crash row when a later rerun of the same step (tier, backend, rep) succeeded."""
+    crashed = df["variant"] == "crashed"
+    keep = pd.Series(True, index=df.index)
+    for i, c in df[crashed].iterrows():
+        wls = _STEP.get(c["workload"], {c["workload"]})
+        later_ok = df[~crashed & (df["tier"] == c["tier"]) & (df["backend"] == c["backend"]) &
+                      # W9 rows written before 2026-10-05 carry no rep
+                      ((df["rep"] == c["rep"]) | df["rep"].isna()) &
+                      df["workload"].isin(wls) & (df["timestamp"] > c["timestamp"])]
+        if len(later_ok):
+            keep[i] = False
+    return df[keep]
 
 
 def boot_ci(x: np.ndarray, n: int = 2000, seed: int = 0) -> tuple[float, float]:

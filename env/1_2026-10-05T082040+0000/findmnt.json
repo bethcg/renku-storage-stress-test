@@ -1,0 +1,165 @@
+{
+   "filesystems": [
+      {
+         "target": "/",
+         "source": "overlay",
+         "fstype": "overlay",
+         "options": "rw,relatime,lowerdir=/var/lib/containerd/io.containerd.snapshotter.v1.overlayfs/snapshots/323/fs:/var/lib/containerd/io.containerd.snapshotter.v1.overlayfs/snapshots/322/fs:/var/lib/containerd/io.containerd.snapshotter.v1.overlayfs/snapshots/321/fs:/var/lib/containerd/io.containerd.snapshotter.v1.overlayfs/snapshots/320/fs:/var/lib/containerd/io.containerd.snapshotter.v1.overlayfs/snapshots/319/fs:/var/lib/containerd/io.containerd.snapshotter.v1.overlayfs/snapshots/318/fs:/var/lib/containerd/io.containerd.snapshotter.v1.overlayfs/snapshots/317/fs:/var/lib/containerd/io.containerd.snapshotter.v1.overlayfs/snapshots/316/fs:/var/lib/containerd/io.containerd.snapshotter.v1.overlayfs/snapshots/315/fs:/var/lib/containerd/io.containerd.snapshotter.v1.overlayfs/snapshots/314/fs:/var/lib/containerd/io.containerd.snapshotter.v1.overlayfs/snapshots/313/fs:/var/lib/containerd/io.containerd.snapshotter.v1.overlayfs/snapshots/312/fs:/var/lib/containerd/io.containerd.snapshotter.v1.overlayfs/snapshots/311/fs:/var/lib/containerd/io.containerd.snapshotter.v1.overlayfs/snapshots/310/fs:/var/lib/containerd/io.containerd.snapshotter.v1.overlayfs/snapshots/309/fs:/var/lib/containerd/io.containerd.snapshotter.v1.overlayfs/snapshots/308/fs:/var/lib/containerd/io.containerd.snapshotter.v1.overlayfs/snapshots/307/fs:/var/lib/containerd/io.containerd.snapshotter.v1.overlayfs/snapshots/306/fs:/var/lib/containerd/io.containerd.snapshotter.v1.overlayfs/snapshots/305/fs:/var/lib/containerd/io.containerd.snapshotter.v1.overlayfs/snapshots/304/fs:/var/lib/containerd/io.containerd.snapshotter.v1.overlayfs/snapshots/303/fs,upperdir=/var/lib/containerd/io.containerd.snapshotter.v1.overlayfs/snapshots/324/fs,workdir=/var/lib/containerd/io.containerd.snapshotter.v1.overlayfs/snapshots/324/work,nouserxattr",
+         "children": [
+            {
+               "target": "/proc",
+               "source": "proc",
+               "fstype": "proc",
+               "options": "rw,nosuid,nodev,noexec,relatime",
+               "children": [
+                  {
+                     "target": "/proc/bus",
+                     "source": "proc[/bus]",
+                     "fstype": "proc",
+                     "options": "ro,nosuid,nodev,noexec,relatime"
+                  },{
+                     "target": "/proc/fs",
+                     "source": "proc[/fs]",
+                     "fstype": "proc",
+                     "options": "ro,nosuid,nodev,noexec,relatime"
+                  },{
+                     "target": "/proc/irq",
+                     "source": "proc[/irq]",
+                     "fstype": "proc",
+                     "options": "ro,nosuid,nodev,noexec,relatime"
+                  },{
+                     "target": "/proc/sys",
+                     "source": "proc[/sys]",
+                     "fstype": "proc",
+                     "options": "ro,nosuid,nodev,noexec,relatime"
+                  },{
+                     "target": "/proc/sysrq-trigger",
+                     "source": "proc[/sysrq-trigger]",
+                     "fstype": "proc",
+                     "options": "ro,nosuid,nodev,noexec,relatime"
+                  },{
+                     "target": "/proc/acpi",
+                     "source": "tmpfs",
+                     "fstype": "tmpfs",
+                     "options": "ro,relatime,size=4k,nr_inodes=1,inode64"
+                  },{
+                     "target": "/proc/interrupts",
+                     "source": "tmpfs[/null]",
+                     "fstype": "tmpfs",
+                     "options": "rw,nosuid,size=65536k,mode=755,inode64"
+                  },{
+                     "target": "/proc/kcore",
+                     "source": "tmpfs[/null]",
+                     "fstype": "tmpfs",
+                     "options": "rw,nosuid,size=65536k,mode=755,inode64"
+                  },{
+                     "target": "/proc/keys",
+                     "source": "tmpfs[/null]",
+                     "fstype": "tmpfs",
+                     "options": "rw,nosuid,size=65536k,mode=755,inode64"
+                  },{
+                     "target": "/proc/timer_list",
+                     "source": "tmpfs[/null]",
+                     "fstype": "tmpfs",
+                     "options": "rw,nosuid,size=65536k,mode=755,inode64"
+                  },{
+                     "target": "/proc/scsi",
+                     "source": "tmpfs",
+                     "fstype": "tmpfs",
+                     "options": "ro,relatime,size=4k,nr_inodes=1,inode64"
+                  }
+               ]
+            },{
+               "target": "/dev",
+               "source": "tmpfs",
+               "fstype": "tmpfs",
+               "options": "rw,nosuid,size=65536k,mode=755,inode64",
+               "children": [
+                  {
+                     "target": "/dev/pts",
+                     "source": "devpts",
+                     "fstype": "devpts",
+                     "options": "rw,nosuid,noexec,relatime,gid=5,mode=620,ptmxmode=666"
+                  },{
+                     "target": "/dev/mqueue",
+                     "source": "mqueue",
+                     "fstype": "mqueue",
+                     "options": "rw,nosuid,nodev,noexec,relatime"
+                  },{
+                     "target": "/dev/shm",
+                     "source": "tmpfs",
+                     "fstype": "tmpfs",
+                     "options": "rw,relatime,size=976564k,inode64"
+                  },{
+                     "target": "/dev/termination-log",
+                     "source": "/dev/root[/var/lib/kubelet/pods/6c27dc05-b2f4-4281-b425-0f759f324e10/containers/amalthea-session/910f7b1c]",
+                     "fstype": "ext4",
+                     "options": "rw,relatime,discard,errors=remount-ro"
+                  }
+               ]
+            },{
+               "target": "/sys",
+               "source": "sysfs",
+               "fstype": "sysfs",
+               "options": "ro,nosuid,nodev,noexec,relatime",
+               "children": [
+                  {
+                     "target": "/sys/firmware",
+                     "source": "tmpfs",
+                     "fstype": "tmpfs",
+                     "options": "ro,relatime,size=4k,nr_inodes=1,inode64"
+                  },{
+                     "target": "/sys/fs/cgroup",
+                     "source": "cgroup",
+                     "fstype": "cgroup2",
+                     "options": "ro,nosuid,nodev,noexec,relatime"
+                  }
+               ]
+            },{
+               "target": "/etc/hosts",
+               "source": "/dev/root[/var/lib/kubelet/pods/6c27dc05-b2f4-4281-b425-0f759f324e10/etc-hosts]",
+               "fstype": "ext4",
+               "options": "rw,relatime,discard,errors=remount-ro"
+            },{
+               "target": "/etc/hostname",
+               "source": "/dev/root[/var/lib/containerd/io.containerd.grpc.v1.cri/sandboxes/9491936cb5413b94d0ef3299ebc6866f580a4fcb0a06ce3fd4e7177e4f072fb3/hostname]",
+               "fstype": "ext4",
+               "options": "rw,relatime,discard,errors=remount-ro"
+            },{
+               "target": "/etc/resolv.conf",
+               "source": "/dev/root[/var/lib/containerd/io.containerd.grpc.v1.cri/sandboxes/9491936cb5413b94d0ef3299ebc6866f580a4fcb0a06ce3fd4e7177e4f072fb3/resolv.conf]",
+               "fstype": "ext4",
+               "options": "rw,relatime,discard,errors=remount-ro"
+            },{
+               "target": "/home/renku/work",
+               "source": "/dev/sdb",
+               "fstype": "ext4",
+               "options": "rw,relatime",
+               "children": [
+                  {
+                     "target": "/home/renku/work/renku-store",
+                     "source": "//f6b84e4942bdb49bbbd61ec.file.core.windows.net/pvc-352573b6-dc0a-4a0e-b2a3-e512bf03980c",
+                     "fstype": "cifs",
+                     "options": "rw,relatime,vers=3.1.1,cache=strict,upcall_target=app,username=f6b84e4942bdb49bbbd61ec,uid=0,noforceuid,gid=1000,forcegid,addr=20.209.29.3,file_mode=0777,dir_mode=0777,soft,persistenthandles,nounix,serverino,mapposix,mfsymlinks,rsize=1048576,wsize=1048576,bsize=1048576,retrans=1,echo_interval=60,nosharesock,actimeo=30,closetimeo=1"
+                  },{
+                     "target": "/home/renku/work/teaching-assets-write",
+                     "source": "rclone-mounter-pvc-50b38b3b-588d-429f-9060-808e3496ecbd:",
+                     "fstype": "fuse.rclone",
+                     "options": "rw,relatime,user_id=0,group_id=0,allow_other"
+                  },{
+                     "target": "/home/renku/work/stress-test-polybox",
+                     "source": "rclone-mounter-pvc-e2021ce3-e791-45a6-83c8-679110ca8b0a:",
+                     "fstype": "fuse.rclone",
+                     "options": "rw,relatime,user_id=0,group_id=0,allow_other"
+                  },{
+                     "target": "/home/renku/work/stress-test-azure",
+                     "source": "rclone-mounter-pvc-1b243673-9091-4676-babb-5daadc2705ba:",
+                     "fstype": "fuse.rclone",
+                     "options": "rw,relatime,user_id=0,group_id=0,allow_other"
+                  }
+               ]
+            }
+         ]
+      }
+   ]
+}

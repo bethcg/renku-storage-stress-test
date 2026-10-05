@@ -1,0 +1,19 @@
+[run] id=20261005T0858-0887 tier=S reps=5 backends=['project', 'azure', 'polybox', 'local'] seed=20261005
+[run] results -> /home/renku/work/renku-storage-stress-test/results/S/elisabet-cap-52039ca53e6c-0_2026-10-05.jsonl
+[preflight] tier S needs ~22.7 GB per backend
+  project  ok: 59.9 GB free
+  azure    ok (rclone API reachable; free space not checked for object stores)
+  polybox  ok (rclone API reachable; free space not checked for object stores)
+  local    ok: 196.2 GB free
+[stage] project: 180/180 units already staged
+[stage] azure: 180/180 units already staged
+[stage] polybox: 0/180 units already staged
+  [1/180] small-files/shard-000
+  [2/180] small-files/shard-001
+  [3/180] small-files/shard-002
+  [4/180] small-files/shard-003
+  [5/180] small-files/shard-004
+  [6/180] small-files/shard-005
+  [7/180] small-files/shard-006
+  [8/180] small-files/shard-007
+  [9/180] small-files/shard-008

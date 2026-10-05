@@ -1,0 +1,101 @@
+[run] id=20261005T0838-04c9 tier=Sq reps=1 backends=['project', 'azure', 'polybox', 'local'] seed=20261005
+[run] results -> /home/renku/work/renku-storage-stress-test/results/Sq/1_2026-10-05.jsonl
+[preflight] tier Sq needs ~0.1 GB per backend
+  project  ok: 80.2 GB free
+  azure    ok (rclone API reachable; free space not checked for object stores)
+  polybox  ok (rclone API reachable; free space not checked for object stores)
+  local    ok: 196.3 GB free
+[stage] project: 0/36 units already staged
+  [1/36] small-files/shard-000
+  [2/36] small-files/shard-001
+  [3/36] medium-files/shard-000
+  [4/36] medium-files/shard-001
+  [5/36] large-files/table-000.parquet
+  [6/36] large-files/array-000.h5
+  [7/36] fio-pool/rep-00/file-00.bin
+  [8/36] fio-pool/rep-00/file-01.bin
+  [9/36] fio-pool/rep-00/file-02.bin
+  [10/36] fio-pool/rep-00/file-03.bin
+  [11/36] fio-pool/rep-00/file-04.bin
+  [12/36] fio-pool/rep-00/file-05.bin
+  [13/36] fio-pool/rep-00/file-06.bin
+  [14/36] fio-pool/rep-00/file-07.bin
+  [15/36] fio-pool/rep-00/file-08.bin
+  [16/36] fio-pool/rep-00/file-09.bin
+  [17/36] fio-pool/rep-00/file-10.bin
+  [18/36] fio-pool/rep-00/file-11.bin
+  [19/36] fio-pool/rep-00/file-12.bin
+  [20/36] fio-pool/rep-00/file-13.bin
+  [21/36] fio-pool/rep-00/file-14.bin
+  [22/36] fio-pool/rep-00/file-15.bin
+  [23/36] fio-pool/rep-00/file-16.bin
+  [24/36] fio-pool/rep-00/file-17.bin
+  [25/36] fio-pool/rep-00/file-18.bin
+  [26/36] fio-pool/rep-00/file-19.bin
+  [27/36] fio-pool/rep-00/file-20.bin
+  [28/36] fio-pool/rep-00/file-21.bin
+  [29/36] fio-pool/rep-00/file-22.bin
+  [30/36] fio-pool/rep-00/file-23.bin
+  [31/36] fio-pool/rep-00/file-24.bin
+  [32/36] fio-pool/rep-00/file-25.bin
+  [33/36] fio-pool/rep-00/file-26.bin
+  [34/36] fio-pool/rep-00/file-27.bin
+  [35/36] fio-pool/rep-00/file-28.bin
+  [36/36] fio-pool/rep-00/file-29.bin
+[stage] azure: 0/36 units already staged
+  [1/36] small-files/shard-000
+  [2/36] small-files/shard-001
+  [3/36] medium-files/shard-000
+  [4/36] medium-files/shard-001
+  [5/36] large-files/table-000.parquet
+  [6/36] large-files/array-000.h5
+  [7/36] fio-pool/rep-00/file-00.bin
+  [8/36] fio-pool/rep-00/file-01.bin
+  [9/36] fio-pool/rep-00/file-02.bin
+  [10/36] fio-pool/rep-00/file-03.bin
+  [11/36] fio-pool/rep-00/file-04.bin
+  [12/36] fio-pool/rep-00/file-05.bin
+  [13/36] fio-pool/rep-00/file-06.bin
+  [14/36] fio-pool/rep-00/file-07.bin
+  [15/36] fio-pool/rep-00/file-08.bin
+  [16/36] fio-pool/rep-00/file-09.bin
+  [17/36] fio-pool/rep-00/file-10.bin
+  [18/36] fio-pool/rep-00/file-11.bin
+  [19/36] fio-pool/rep-00/file-12.bin
+  [20/36] fio-pool/rep-00/file-13.bin
+  [21/36] fio-pool/rep-00/file-14.bin
+  [22/36] fio-pool/rep-00/file-15.bin
+  [23/36] fio-pool/rep-00/file-16.bin
+  [24/36] fio-pool/rep-00/file-17.bin
+  [25/36] fio-pool/rep-00/file-18.bin
+  [26/36] fio-pool/rep-00/file-19.bin
+  [27/36] fio-pool/rep-00/file-20.bin
+  [28/36] fio-pool/rep-00/file-21.bin
+  [29/36] fio-pool/rep-00/file-22.bin
+  [30/36] fio-pool/rep-00/file-23.bin
+  [31/36] fio-pool/rep-00/file-24.bin
+  [32/36] fio-pool/rep-00/file-25.bin
+  [33/36] fio-pool/rep-00/file-26.bin
+  [34/36] fio-pool/rep-00/file-27.bin
+  [35/36] fio-pool/rep-00/file-28.bin
+  [36/36] fio-pool/rep-00/file-29.bin
+[stage] waiting for the mount to show /home/renku/work/stress-test-azure/renku-stress/data/Sq/fio-pool/rep-00/file-29.bin ...
+[stage] visible after 50s
+[stage] polybox: 0/36 units already staged
+  [1/36] small-files/shard-000
+Traceback (most recent call last):
+  File "/home/renku/work/renku-storage-stress-test/scripts/run_all.py", line 137, in <module>
+    main()
+  File "/home/renku/work/renku-storage-stress-test/scripts/run_all.py", line 106, in main
+    stage_mod.stage(b, spec, writer)
+  File "/home/renku/work/renku-storage-stress-test/scripts/02_stage_data.py", line 58, in stage
+    rclone("copy", str(src), dst, *RCLONE_FLAGS)
+  File "/home/renku/work/renku-storage-stress-test/scripts/lib.py", line 236, in rclone
+    return run(["rclone", "--config", conf, *args], check=check)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/renku/work/renku-storage-stress-test/scripts/lib.py", line 231, in run
+    return subprocess.run(cmd, check=check, text=True, capture_output=True, **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/layers/paketo-buildpacks_conda-env-update/conda-env/lib/python3.11/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['rclone', '--config', '/home/renku/work/renku-storage-stress-test/config/rclone.conf', 'copy', '/tmp/stress-scratch/stage/polybox/small-files/shard-001', 'polybox:renku-storage-test/data/Sq/small-files/shard-001', '--transfers', '8', '--checkers', '16', '--retries', '5', '--low-level-retries', '20']' returned non-zero exit status 1.

@@ -105,7 +105,8 @@ def remote_path(target: dict, *parts: str) -> str:
 # --------------------------------------------------------------------------- results
 def session_info() -> dict:
     return {
-        "session_id": os.environ.get("RENKU_SESSION", os.environ.get("HOSTNAME", socket.gethostname())),
+        # the pod hostname is unique per session; RENKU_SESSION is just "1" on RenkuLab
+        "session_id": os.environ.get("HOSTNAME", socket.gethostname()),
         "node": os.environ.get("KUBERNETES_NODE_NAME", os.environ.get("NODE_NAME", "unknown")),
         "host": socket.gethostname(),
     }
@@ -233,7 +234,13 @@ def run(cmd: list[str], check: bool = True, **kw) -> subprocess.CompletedProcess
 
 def rclone(*args: str, check: bool = True) -> subprocess.CompletedProcess:
     conf = os.environ.get("RCLONE_CONFIG", str(ROOT / "config" / "rclone.conf"))
-    return run(["rclone", "--config", conf, *args], check=check)
+    try:
+        return run(["rclone", "--config", conf, *args], check=check)
+    except subprocess.CalledProcessError as e:
+        # stderr is captured, so surface its tail or the run log only shows "exit status 1"
+        tail = "\n".join((e.stderr or "").strip().splitlines()[-5:])
+        print(f"[rclone] {' '.join(args[:3])} failed (exit {e.returncode}):\n{tail}", flush=True)
+        raise
 
 
 def drop_file_cache(path: Path) -> None:

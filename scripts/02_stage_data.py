@@ -18,6 +18,7 @@ from __future__ import annotations
 import argparse
 import json
 import shutil
+import subprocess
 import sys
 import time
 from pathlib import Path
@@ -28,6 +29,21 @@ from lib import (ResultWriter, data_root, load_script, load_targets, load_tier, 
 
 gen = load_script("01_generate_dataset.py")
 RCLONE_FLAGS = ["--transfers", "8", "--checkers", "16", "--retries", "5", "--low-level-retries", "20"]
+
+
+def _upload(cmd: str, src: Path, dst: str, attempts: int = 4) -> None:
+    """Staging upload that outlasts transient throttling (PolyBox rejects bursts of
+    parallel uploads for a while). Not used for W9, whose timing must not include waits."""
+    for i in range(attempts):
+        try:
+            rclone(cmd, str(src), dst, *RCLONE_FLAGS)
+            return
+        except subprocess.CalledProcessError:
+            if i == attempts - 1:
+                raise
+            wait = 30 * 2 ** i
+            print(f"[stage] upload of {src.name} failed, retrying in {wait}s ({i + 1}/{attempts - 1})", flush=True)
+            time.sleep(wait)
 
 
 def stage(backend: str, spec: dict, writer: ResultWriter | None = None) -> None:
@@ -54,10 +70,7 @@ def stage(backend: str, spec: dict, writer: ResultWriter | None = None) -> None:
             src = tmp / u.relpath
             dst = f"{t['rclone_remote'].rstrip('/')}/{rel_root}/{u.relpath}"
             with timer() as tm:
-                if src.is_dir():
-                    rclone("copy", str(src), dst, *RCLONE_FLAGS)
-                else:
-                    rclone("copyto", str(src), dst, *RCLONE_FLAGS)
+                _upload("copy" if src.is_dir() else "copyto", src, dst)
             upload_s += tm["s"]
             upload_bytes += u.nbytes
             shutil.rmtree(src) if src.is_dir() else src.unlink()
@@ -92,13 +105,16 @@ def ingress(backend: str, spec: dict, writer: ResultWriter, rep: int) -> None:
 
     # (a) through the mount, as a user would with cp / shutil
     with timer() as tm:
-        shutil.copytree(small, dst / "small")
-    writer.write(backend=backend, workload="W9", variant="mount-small", profile="small-files",
+        # bytes only, like plain `cp`: copytree's copystat raises on CIFS (no chmod/utime for non-owners)
+        (dst / "small").mkdir(parents=True, exist_ok=True)
+        for f in small.iterdir():
+            shutil.copyfile(f, dst / "small" / f.name)
+    writer.write(backend=backend, workload="W9", rep=rep, variant="mount-small", profile="small-files",
                  files=n_small, bytes=b_small, duration_s=round(tm["s"], 3),
                  throughput_mb_s=round(b_small / 1e6 / tm["s"], 2), ops_per_s=round(n_small / tm["s"], 1))
     with timer() as tm:
         shutil.copyfile(large, dst / "large.bin")
-    row = dict(backend=backend, workload="W9", variant="mount-large", profile="large-files",
+    row = dict(backend=backend, workload="W9", rep=rep, variant="mount-large", profile="large-files",
                files=1, bytes=b_large, duration_s=round(tm["s"], 3),
                throughput_mb_s=round(b_large / 1e6 / tm["s"], 2))
     if t["kind"] == "rclone":
@@ -113,12 +129,12 @@ def ingress(backend: str, spec: dict, writer: ResultWriter, rep: int) -> None:
         rdst = f"{t['rclone_remote'].rstrip('/')}/{dst.relative_to(t['path'])}-api"
         with timer() as tm:
             rclone("copy", str(small), f"{rdst}/small", *RCLONE_FLAGS)
-        writer.write(backend=backend, workload="W9", variant="api-small", profile="small-files",
+        writer.write(backend=backend, workload="W9", rep=rep, variant="api-small", profile="small-files",
                      files=n_small, bytes=b_small, duration_s=round(tm["s"], 3),
                      throughput_mb_s=round(b_small / 1e6 / tm["s"], 2), ops_per_s=round(n_small / tm["s"], 1))
         with timer() as tm:
             rclone("copyto", str(large), f"{rdst}/large.bin", *RCLONE_FLAGS)
-        writer.write(backend=backend, workload="W9", variant="api-large", profile="large-files",
+        writer.write(backend=backend, workload="W9", rep=rep, variant="api-large", profile="large-files",
                      files=1, bytes=b_large, duration_s=round(tm["s"], 3),
                      throughput_mb_s=round(b_large / 1e6 / tm["s"], 2))
         rclone("purge", rdst, check=False)

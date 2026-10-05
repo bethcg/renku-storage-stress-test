@@ -149,19 +149,36 @@ def c_mtime_preserved(d: Path):
     assert abs(p.stat().st_mtime - 1_600_000_000) < 2, "mtime not settable"
 
 
-def c_git(d: Path):
+def _git(d: Path, safe_directory: bool):
     repo = d / "repo"
     repo.mkdir()
+    (repo / "a.txt").write_text("x\n")
     env = {**os.environ, "GIT_AUTHOR_NAME": "t", "GIT_AUTHOR_EMAIL": "t@t", "GIT_COMMITTER_NAME": "t",
            "GIT_COMMITTER_EMAIL": "t@t"}
-    for cmd in (["git", "init", "-q"], ["git", "add", "-A"], ["git", "commit", "-q", "--allow-empty", "-m", "x"],
+    if safe_directory:
+        # rclone mounts report files as owned by root, so git refuses them as "dubious ownership";
+        # users fix that once with `git config --global --add safe.directory '*'`
+        env.update(GIT_CONFIG_COUNT="1", GIT_CONFIG_KEY_0="safe.directory", GIT_CONFIG_VALUE_0="*")
+    for cmd in (["git", "init", "-q"], ["git", "add", "-A"], ["git", "commit", "-q", "-m", "x"],
                 ["git", "status", "--porcelain"]):
-        subprocess.run(cmd, cwd=repo, env=env, check=True, capture_output=True, timeout=120)
+        p = subprocess.run(cmd, cwd=repo, env=env, capture_output=True, text=True, timeout=120)
+        if p.returncode:
+            raise RuntimeError(f"{' '.join(cmd[:2])}: {p.stderr.strip().splitlines()[-1] if p.stderr.strip() else p.returncode}")
+
+
+def c_git(d: Path):
+    """git as users would run it after the one-line safe.directory workaround."""
+    _git(d, safe_directory=True)
+
+
+def c_git_no_safedir(d: Path):
+    """git with default config; FAIL here but PASS on `git` means only the workaround is needed."""
+    _git(d, safe_directory=False)
 
 
 CHECKS = [c_append, c_overwrite_middle, c_rename_atomic, c_rename_dir, c_flock, c_fcntl_lock, c_mmap_write,
           c_sqlite, c_sqlite_wal, c_symlink, c_hardlink, c_chmod_exec, c_sparse_seek, c_fsync,
-          c_case_sensitive, c_mtime_preserved, c_git]
+          c_case_sensitive, c_mtime_preserved, c_git, c_git_no_safedir]
 
 
 def run(backend: str, spec: dict, writer: ResultWriter) -> None:

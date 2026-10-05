@@ -1,0 +1,19 @@
+[run] id=20261005T0856-3895 tier=S reps=5 backends=['project', 'azure', 'polybox', 'local'] seed=20261005
+[run] results -> /home/renku/work/renku-storage-stress-test/results/S/elisabet-cap-52039ca53e6c-0_2026-10-05.jsonl
+[preflight] tier S needs ~22.7 GB per backend
+  project  ok: 59.9 GB free
+  azure    ok (rclone API reachable; free space not checked for object stores)
+  polybox  ok (rclone API reachable; free space not checked for object stores)
+  local    ok: 196.2 GB free
+[stage] project: 180/180 units already staged
+[stage] azure: 133/180 units already staged
+[rclone] copyto /tmp/stress-scratch/stage/azure/fio-pool/rep-03/file-13.bin azure:renku-stress/data/S/fio-pool/rep-03/file-13.bin failed (exit 4):
+2026/10/05 08:56:25 ERROR : Attempt 2/5 failed with 1 errors and: object not found
+2026/10/05 08:56:25 ERROR : Attempt 3/5 failed with 1 errors and: object not found
+2026/10/05 08:56:25 ERROR : Attempt 4/5 failed with 1 errors and: object not found
+2026/10/05 08:56:25 ERROR : Attempt 5/5 failed with 1 errors and: object not found
+2026/10/05 08:56:25 NOTICE: Failed to copyto: object not found
+[stage] upload of file-13.bin failed, retrying in 30s (1/3)
+[rclone] copyto /tmp/stress-scratch/stage/azure/fio-pool/rep-03/file-13.bin azure:renku-stress/data/S/fio-pool/rep-03/file-13.bin failed (exit 1):
+2026/10/05 08:56:55 CRITICAL: Source doesn't exist or is a directory and destination is a file
+[stage] upload of file-13.bin failed, retrying in 60s (2/3)

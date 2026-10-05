@@ -4,7 +4,7 @@ Compares, inside one RenkuLab session, how the same synthetic data performs on:
 
 | backend   | what it is |
 |-----------|------------|
-| `project` | Renku project storage (Ceph RBD block volume) |
+| `project` | Renku project storage (CIFS / Azure Files in the tested session; check `env/` for yours) |
 | `azure`   | Azure Blob data connector (rclone FUSE mount) |
 | `polybox` | PolyBox data connector (rclone over WebDAV) |
 | `local`   | the session's own disk, as a reference |
@@ -58,10 +58,11 @@ Resume an interrupted run with `--start-rep N --skip-stage`. Subsets: `--backend
 ## Data handling
 
 Synthetic data only. Do not put real research or personal data into this test.
-Delete the Azure container and the PolyBox folder afterwards (`rclone purge azure:renku-stress/stress`).
+Delete the benchmark data afterwards: `rclone --config config/rclone.conf purge <rclone_remote>/data`
+for each connector in `config/targets.yaml` (e.g. `azure:renku-stress/data`, `polybox:renku-storage-test/data`).
 
 ## Tested
 
-The full pipeline (`--tier S --quick`) was run end to end against local stand-ins for all four
-backends (rclone `local` remotes in place of Azure/PolyBox). It has not yet run on RenkuLab
-itself; expect to adjust mount paths and, possibly, rclone timeouts on the first real smoke test.
+The smoke test (`--tier S --quick`) ran end to end on RenkuLab against all four real backends on
+2026-10-05. Project storage in that session was a CIFS share on which git, SQLite, chmod and hardlinks
+fail; see `semantics.csv`. With rclone mounts, git needs `git config --global --add safe.directory '*'`.

@@ -4,7 +4,7 @@
 set -uo pipefail
 cd "$(dirname "$0")/.."
 
-SESSION="${RENKU_SESSION:-${HOSTNAME:-$(hostname)}}"
+SESSION="${HOSTNAME:-$(hostname)}"   # unique per session pod; RENKU_SESSION is just "1"
 TS="$(date +%Y-%m-%dT%H%M%S%z)"
 OUT="env/${SESSION}_${TS}"
 mkdir -p "$OUT"

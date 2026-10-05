@@ -1,0 +1,87 @@
+[run] id=20261005T0854-297a tier=Sq reps=1 backends=['project', 'azure', 'polybox', 'local'] seed=20261005
+[run] results -> /home/renku/work/renku-storage-stress-test/results/Sq/elisabet-cap-52039ca53e6c-0_2026-10-05.jsonl
+[preflight] tier Sq needs ~0.1 GB per backend
+  project  ok: 59.9 GB free
+  azure    ok (rclone API reachable; free space not checked for object stores)
+  polybox  ok (rclone API reachable; free space not checked for object stores)
+  local    ok: 196.2 GB free
+  project  append             PASS
+  project  overwrite_middle   PASS
+  project  rename_atomic      PASS
+  project  rename_dir         PASS
+  project  flock              PASS
+  project  fcntl_lock         PASS
+  project  mmap_write         PASS
+  project  sqlite             FAIL OperationalError: database is locked
+  project  sqlite_wal         FAIL OperationalError: database is locked
+  project  symlink            PASS
+  project  hardlink           FAIL OSError: [Errno 95] Operation not supported: '/home/renku/work/renku-store/work/Sq/semantics-1791190493/c_hardlink/h1.txt' -> '/home/renku/work/renku-store/work/Sq/semantics-1791190493/c_hardlink/h2.txt'
+  project  chmod_exec         FAIL PermissionError: [Errno 1] Operation not permitted: '/home/renku/work/renku-store/work/Sq/semantics-1791190493/c_chmod_exec/run.sh'
+  project  sparse_seek        PASS
+  project  fsync              PASS
+  project  case_sensitive     FAIL AssertionError: filesystem is case-insensitive
+  project  mtime_preserved    FAIL PermissionError: [Errno 1] Operation not permitted
+  project  git                FAIL RuntimeError: git init: fatal: could not set 'core.filemode' to 'false'
+  project  git_no_safedir     FAIL RuntimeError: git init: fatal: could not set 'core.filemode' to 'false'
+  azure    append             PASS
+  azure    overwrite_middle   PASS
+  azure    rename_atomic      PASS
+  azure    rename_dir         PASS
+  azure    flock              PASS
+  azure    fcntl_lock         PASS
+  azure    mmap_write         PASS
+  azure    sqlite             PASS
+  azure    sqlite_wal         PASS
+  azure    symlink            FAIL OSError: [Errno 5] Input/output error: 'target.txt' -> '/home/renku/work/stress-test-azure/renku-stress/work/Sq/semantics-1791190507/c_symlink/link.txt'
+  azure    hardlink           FAIL OSError: [Errno 38] Function not implemented: '/home/renku/work/stress-test-azure/renku-stress/work/Sq/semantics-1791190507/c_hardlink/h1.txt' -> '/home/renku/work/stress-test-azure/renku-stress/work/Sq/semantics-1791190507/c_hardlink/h2.txt'
+  azure    chmod_exec         FAIL PermissionError: [Errno 13] Permission denied: '/home/renku/work/stress-test-azure/renku-stress/work/Sq/semantics-1791190507/c_chmod_exec/run.sh'
+  azure    sparse_seek        PASS
+  azure    fsync              PASS
+  azure    case_sensitive     PASS
+  azure    mtime_preserved    PASS
+  azure    git                PASS
+  azure    git_no_safedir     FAIL RuntimeError: git add: 	git config --global --add safe.directory /home/renku/work/stress-test-azure/renku-stress/work/Sq/semantics-1791190507/c_git_no_safedir/repo
+  polybox  append             PASS
+  polybox  overwrite_middle   PASS
+  polybox  rename_atomic      PASS
+  polybox  rename_dir         PASS
+  polybox  flock              PASS
+  polybox  fcntl_lock         PASS
+  polybox  mmap_write         PASS
+  polybox  sqlite             PASS
+  polybox  sqlite_wal         PASS
+  polybox  symlink            FAIL OSError: [Errno 5] Input/output error: 'target.txt' -> '/home/renku/work/stress-test-polybox/work/Sq/semantics-1791190508/c_symlink/link.txt'
+  polybox  hardlink           FAIL OSError: [Errno 38] Function not implemented: '/home/renku/work/stress-test-polybox/work/Sq/semantics-1791190508/c_hardlink/h1.txt' -> '/home/renku/work/stress-test-polybox/work/Sq/semantics-1791190508/c_hardlink/h2.txt'
+  polybox  chmod_exec         FAIL PermissionError: [Errno 13] Permission denied: '/home/renku/work/stress-test-polybox/work/Sq/semantics-1791190508/c_chmod_exec/run.sh'
+  polybox  sparse_seek        PASS
+  polybox  fsync              PASS
+  polybox  case_sensitive     PASS
+  polybox  mtime_preserved    PASS
+  polybox  git                PASS
+  polybox  git_no_safedir     FAIL RuntimeError: git add: 	git config --global --add safe.directory /home/renku/work/stress-test-polybox/work/Sq/semantics-1791190508/c_git_no_safedir/repo
+  local    append             PASS
+  local    overwrite_middle   PASS
+  local    rename_atomic      PASS
+  local    rename_dir         PASS
+  local    flock              PASS
+  local    fcntl_lock         PASS
+  local    mmap_write         PASS
+  local    sqlite             PASS
+  local    sqlite_wal         PASS
+  local    symlink            PASS
+  local    hardlink           PASS
+  local    chmod_exec         PASS
+  local    sparse_seek        PASS
+  local    fsync              PASS
+  local    case_sensitive     PASS
+  local    mtime_preserved    PASS
+  local    git                PASS
+  local    git_no_safedir     PASS
+
+[rep 1/1] order: project -> azure -> local -> polybox
+  [project] fio
+  [azure] fio
+  [local] fio
+  [polybox] fio
+
+[run] done. Analyse with: python analysis/analyze.py /home/renku/work/renku-storage-stress-test/results/Sq

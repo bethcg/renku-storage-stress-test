@@ -5,6 +5,9 @@
 #   cp config/rclone.conf.template config/rclone.conf   # rclone.conf is git-ignored
 #   rclone --config config/rclone.conf lsd azure:        # sanity check
 #
+# With a container-scoped SAS, remote paths start with that container (azure:renku-stress/...),
+# so `rclone_remote` in targets.yaml must too.
+#
 # Use the SAME credentials you gave the Renku data connectors. Never commit secrets.
 
 [azure]
@@ -18,7 +21,8 @@ sas_url = https://ACCOUNT.blob.core.windows.net/renku-stress?sv=...&sig=...
 [polybox]
 type = webdav
 vendor = nextcloud
-url = https://polybox.ethz.ch/remote.php/webdav/
+# rclone's nextcloud vendor needs the /dav/files/<user>/ endpoint; /webdav/ is rejected
+url = https://polybox.ethz.ch/remote.php/dav/files/ETH_USERNAME/
 user = ETH_USERNAME
 # app password from PolyBox Settings -> Security, obscured with: rclone obscure 'APP_PASSWORD'
 pass = OBSCURED_APP_PASSWORD

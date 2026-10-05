@@ -1,0 +1,10 @@
+[run] id=20261005T0846-1c37 tier=Sq reps=1 backends=['project'] seed=20261005
+[run] results -> /home/renku/work/renku-storage-stress-test/results/Sq/1_2026-10-05.jsonl
+[preflight] tier Sq needs ~0.1 GB per backend
+  project  ok: 78.8 GB free
+
+[rep 1/1] order: project
+  [project] fio
+  [project] ingress
+
+[run] done. Analyse with: python analysis/analyze.py /home/renku/work/renku-storage-stress-test/results/Sq

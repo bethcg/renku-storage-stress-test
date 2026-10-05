@@ -1,0 +1,12 @@
+timestamp: 2026-10-05T08:20:40+00:00
+session: 1
+hostname: elisabet-cap-52039ca53e6c-0
+node: unknown
+kernel: 5.15.0-1121-azure
+nproc: 8
+cgroup_cpu_max: max 100000
+cgroup_mem_max: 15032385536
+fio: fio-3.43
+rclone: rclone v1.75.1-DEV
+python: Python 3.11.16
+model name	: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz

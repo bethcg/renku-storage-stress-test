@@ -1,0 +1,20 @@
+[run] id=20261005T0821-6c97 tier=S reps=5 backends=['project', 'azure', 'polybox', 'local'] seed=20261005
+[run] results -> /home/renku/work/renku-storage-stress-test/results/S/1_2026-10-05.jsonl
+[preflight] tier S needs ~22.7 GB per backend
+  project  ok: 80.5 GB free
+Traceback (most recent call last):
+  File "/home/renku/work/renku-storage-stress-test/scripts/run_all.py", line 137, in <module>
+    main()
+  File "/home/renku/work/renku-storage-stress-test/scripts/run_all.py", line 103, in main
+    preflight(backends, spec)
+  File "/home/renku/work/renku-storage-stress-test/scripts/run_all.py", line 56, in preflight
+    rclone("mkdir", t["rclone_remote"])
+  File "/home/renku/work/renku-storage-stress-test/scripts/lib.py", line 236, in rclone
+    return run(["rclone", "--config", conf, *args], check=check)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/renku/work/renku-storage-stress-test/scripts/lib.py", line 231, in run
+    return subprocess.run(cmd, check=check, text=True, capture_output=True, **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/layers/paketo-buildpacks_conda-env-update/conda-env/lib/python3.11/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['rclone', '--config', '/home/renku/work/renku-storage-stress-test/config/rclone.conf', 'mkdir', 'azure:stress-test-azure/renku-stress']' returned non-zero exit status 1.

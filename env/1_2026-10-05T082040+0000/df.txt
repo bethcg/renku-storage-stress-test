@@ -1,0 +1,11 @@
+Filesystem                                                                               Type         Size  Used Avail Use% Mounted on
+overlay                                                                                  overlay      248G   35G  214G  14% /
+tmpfs                                                                                    tmpfs         64M     0   64M   0% /dev
+tmpfs                                                                                    tmpfs        954M     0  954M   0% /dev/shm
+/dev/root                                                                                ext4         248G   35G  214G  14% /etc/hosts
+/dev/sdb                                                                                 ext4         184G  145M  183G   1% /home/renku/work
+//f6b84e4942bdb49bbbd61ec.file.core.windows.net/pvc-352573b6-dc0a-4a0e-b2a3-e512bf03980c cifs          75G     0   75G   0% /home/renku/work/renku-store
+rclone-mounter-pvc-50b38b3b-588d-429f-9060-808e3496ecbd:                                 fuse.rclone  1.0G     0  1.0G   0% /home/renku/work/teaching-assets-write
+rclone-mounter-pvc-e2021ce3-e791-45a6-83c8-679110ca8b0a:                                 fuse.rclone  1.0G  -49G   50G    - /home/renku/work/stress-test-polybox
+rclone-mounter-pvc-1b243673-9091-4676-babb-5daadc2705ba:                                 fuse.rclone  1.0G     0  1.0G   0% /home/renku/work/stress-test-azure
+tmpfs                                                                                    tmpfs        4.0K     0  4.0K   0% /proc/acpi

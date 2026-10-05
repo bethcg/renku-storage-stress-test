@@ -23,7 +23,7 @@ targets:
   polybox:                          # Data connector: PolyBox (WebDAV) via rclone
     kind: rclone
     path: /home/renku/work/stress-test-polybox  
-    rclone_remote: polybox:renku-storage-test   # verified 2026-10-05: probe written via the mount appeared here
+    rclone_remote: polybox:stress-test-polybox
     endpoint: https://polybox.ethz.ch
     notes: "dedicated test folder"
 

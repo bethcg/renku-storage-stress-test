@@ -1,0 +1,44 @@
+# Dataset and workload sizes per tier.
+# Sizes accept B, KiB, MiB, GiB suffixes. Every repetition reads FRESH files
+# (its own shard / pool slice), so the reps value here must be >= the --reps you run.
+#
+# Approximate footprint per backend:
+#   Tier S ~ 20 GB   (profiles 10 GB + fio pool 9.6 GB)
+#   Tier L ~ 145 GB  (profiles 99 GB + fio pool 45 GB)
+
+quick_factor: 0.01        # --quick shrinks counts and sizes to 1 %
+
+tiers:
+  S:
+    reps: 5
+    profiles:
+      small-files:  {kind: bin, count: 20000, size: 100KiB, shards: 10, scale_size: false}
+      medium-files: {kind: bin, count: 1000,  size: 4MiB,   shards: 10, scale_size: false}
+      large-files:  {kind: columnar, count: 10, size: 400MiB, min_count: 2}   # half Parquet, half HDF5
+      fio-pool:     {kind: pool, files_per_rep: 30, size: 64MiB}
+    write_size: 1GiB           # W2 sequential write, per run
+    randread_runtime_s: 30     # W3 duration per block size
+    meta_files: 2000           # W5 files created/stat'ed/renamed/deleted
+    tree_files: 20000          # W8 tar with a conda-like tree
+    h5_random_reads: 200       # W7 random chunk reads per HDF5 file
+
+  L:
+    reps: 3
+    profiles:
+      small-files:  {kind: bin, count: 100000, size: 100KiB, shards: 6, scale_size: false}
+      medium-files: {kind: bin, count: 5000,   size: 4MiB,   shards: 6, scale_size: false}
+      large-files:  {kind: columnar, count: 30, size: 2GiB, min_count: 2}
+      fio-pool:     {kind: pool, files_per_rep: 30, size: 512MiB}
+    write_size: 4GiB
+    randread_runtime_s: 60
+    meta_files: 5000
+    tree_files: 50000
+    h5_random_reads: 500
+
+# fio pool slots per repetition (file indices inside pool/rep-<k>/)
+pool_layout:
+  seq_read:   [0, 7]     # W1: files 0-7 read one after another (cold, then warm)
+  rand_4k:    [8, 8]     # W3 4 KiB
+  rand_64k:   [9, 9]     # W3 64 KiB
+  conc_4:     [10, 13]   # W4: 4 parallel readers
+  conc_16:    [14, 29]   # W4: 16 parallel readers

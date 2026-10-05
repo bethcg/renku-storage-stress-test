@@ -1,0 +1,34 @@
+{
+  "project": {
+    "path": "/home/renku/work/renku-store",
+    "mountpoint": "/home/renku/work/renku-store",
+    "device": "//f6b84e4942bdb49bbbd61ec.file.core.windows.net/pvc-352573b6-dc0a-4a0e-b2a3-e512bf03980c",
+    "fstype": "cifs",
+    "options": "rw,relatime,vers=3.1.1,cache=strict,upcall_target=app,username=f6b84e4942bdb49bbbd61ec,uid=0,noforceuid,gid=1000,forcegid,addr=20.209.29.3,file_mode=0777,dir_mode=0777,soft,persistenthandles,nounix,serverino,mapposix,mfsymlinks,rsize=1048576,wsize=1048576,bsize=1048576,retrans=1,echo_interval=60,nosharesock,actimeo=30,closetimeo=1",
+    "free_gb": 80.5
+  },
+  "azure": {
+    "path": "/home/renku/work/stress-test-azure/renku-stress",
+    "mountpoint": "/home/renku/work/stress-test-azure",
+    "device": "rclone-mounter-pvc-1b243673-9091-4676-babb-5daadc2705ba:",
+    "fstype": "fuse.rclone",
+    "options": "rw,relatime,user_id=0,group_id=0,allow_other",
+    "free_gb": 1.1
+  },
+  "polybox": {
+    "path": "/home/renku/work/stress-test-polybox",
+    "mountpoint": "/home/renku/work/stress-test-polybox",
+    "device": "rclone-mounter-pvc-e2021ce3-e791-45a6-83c8-679110ca8b0a:",
+    "fstype": "fuse.rclone",
+    "options": "rw,relatime,user_id=0,group_id=0,allow_other",
+    "free_gb": 53.3
+  },
+  "local": {
+    "path": "/home/renku/work",
+    "mountpoint": "/home/renku/work",
+    "device": "/dev/sdb",
+    "fstype": "ext4",
+    "options": "rw,relatime",
+    "free_gb": 196.3
+  }
+}
