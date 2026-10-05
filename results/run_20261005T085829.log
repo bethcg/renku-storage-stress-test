@@ -504,3 +504,6 @@
   [project] fio
   [project] metadata
   [project] realistic
+  [project] ingress
+  [azure] fio
+  [azure] metadata
