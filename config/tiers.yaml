@@ -21,6 +21,9 @@ tiers:
     meta_files: 2000           # W5 files created/stat'ed/renamed/deleted
     tree_files: 20000          # W8 tar with a conda-like tree
     h5_random_reads: 200       # W7 random chunk reads per HDF5 file
+    # W11 parallelism sweep (07_parallel_sweep.py): own data under data/<tier>-sweep/, one fresh
+    # shard of `files` files per (rep, level), so ~1.8 GB per backend here
+    sweep: {levels: [1, 2, 4, 8, 16, 32], reps: 3, files: 1000, size: 100KiB}
 
   L:
     reps: 3
@@ -33,6 +36,7 @@ tiers:
     randread_runtime_s: 60
     meta_files: 5000
     tree_files: 50000
+    sweep: {levels: [1, 2, 4, 8, 16, 32, 64], reps: 3, files: 2000, size: 100KiB}
     h5_random_reads: 500
 
 # fio pool slots per repetition (file indices inside pool/rep-<k>/)

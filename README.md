@@ -42,6 +42,8 @@ Resume an interrupted run with `--start-rep N --skip-stage`. Subsets: `--backend
 | `scripts/04_metadata_bench.py` | W5 create / stat / list / rename / delete |
 | `scripts/05_realistic_bench.py` | W6 ML-epoch reads, W7 Parquet + HDF5, W8 untar / walk / delete a tree |
 | `scripts/06_semantics_check.py` | W10 POSIX checks: append, rename, locks, mmap, SQLite (WAL), git, symlinks... |
+| `scripts/07_parallel_sweep.py` | W11 read scaling with 1-32 concurrent readers, own fresh data (run separately) |
+| `scripts/08_durability.py` | W12 do connector writes survive a session stop before upload completes? (`write` / `verify`) |
 | `scripts/run_all.sh` / `run_all.py` | orchestrator: preflight, staging, shuffled backend order per repetition |
 | `analysis/analyze.py` | medians, bootstrap CIs, CV flags, speed vs project storage, break-even passes, figures |
 

@@ -17,3 +17,490 @@
   [7/180] small-files/shard-006
   [8/180] small-files/shard-007
   [9/180] small-files/shard-008
+  [10/180] small-files/shard-009
+  [11/180] medium-files/shard-000
+  [12/180] medium-files/shard-001
+  [13/180] medium-files/shard-002
+  [14/180] medium-files/shard-003
+[rclone] copy /tmp/stress-scratch/stage/polybox/medium-files/shard-004 polybox:renku-storage-test/data/S/medium-files/shard-004 failed (exit 1):
+2026/10/05 09:19:26 ERROR : f-00067.bin: Failed to copy: unchunked simple update failed: Sabre\DAV\Exception\Forbidden: 403 Forbidden
+2026/10/05 09:19:26 ERROR : f-00048.bin: Failed to copy: unchunked simple update failed: Sabre\DAV\Exception\Forbidden: 403 Forbidden
+2026/10/05 09:19:26 ERROR : f-00095.bin: Failed to copy: unchunked simple update failed: Sabre\DAV\Exception\Forbidden: 403 Forbidden
+2026/10/05 09:19:26 ERROR : Attempt 5/5 failed with 4 errors and: unchunked simple update failed: Sabre\DAV\Exception\Forbidden: 403 Forbidden
+2026/10/05 09:19:26 NOTICE: Failed to copy with 4 errors: last error was: unchunked simple update failed: Sabre\DAV\Exception\Forbidden: 403 Forbidden
+[stage] upload of shard-004 failed, retrying in 30s (1/3)
+  [15/180] medium-files/shard-004
+  [16/180] medium-files/shard-005
+  [17/180] medium-files/shard-006
+[rclone] copy /tmp/stress-scratch/stage/polybox/medium-files/shard-007 polybox:renku-storage-test/data/S/medium-files/shard-007 failed (exit 1):
+2026/10/05 09:21:03 ERROR : f-00007.bin: Failed to copy: unchunked simple update failed: Sabre\DAV\Exception\Forbidden: 403 Forbidden
+2026/10/05 09:21:03 ERROR : f-00044.bin: Failed to copy: unchunked simple update failed: Sabre\DAV\Exception\Forbidden: 403 Forbidden
+2026/10/05 09:21:03 ERROR : f-00067.bin: Failed to copy: unchunked simple update failed: Sabre\DAV\Exception\Forbidden: 403 Forbidden
+2026/10/05 09:21:03 ERROR : Attempt 5/5 failed with 3 errors and: unchunked simple update failed: Sabre\DAV\Exception\Forbidden: 403 Forbidden
+2026/10/05 09:21:03 NOTICE: Failed to copy with 3 errors: last error was: unchunked simple update failed: Sabre\DAV\Exception\Forbidden: 403 Forbidden
+[stage] upload of shard-007 failed, retrying in 30s (1/3)
+  [18/180] medium-files/shard-007
+  [19/180] medium-files/shard-008
+[rclone] copy /tmp/stress-scratch/stage/polybox/medium-files/shard-009 polybox:renku-storage-test/data/S/medium-files/shard-009 failed (exit 1):
+2026/10/05 09:22:18 ERROR : f-00043.bin: Failed to copy: unchunked simple update failed: Sabre\DAV\Exception\Forbidden: 403 Forbidden
+2026/10/05 09:22:18 ERROR : f-00048.bin: Failed to copy: unchunked simple update failed: Sabre\DAV\Exception\Forbidden: 403 Forbidden
+2026/10/05 09:22:18 ERROR : f-00025.bin: Failed to copy: unchunked simple update failed: Sabre\DAV\Exception\Forbidden: 403 Forbidden
+2026/10/05 09:22:18 ERROR : Attempt 5/5 failed with 4 errors and: unchunked simple update failed: Sabre\DAV\Exception\Forbidden: 403 Forbidden
+2026/10/05 09:22:18 NOTICE: Failed to copy with 4 errors: last error was: unchunked simple update failed: Sabre\DAV\Exception\Forbidden: 403 Forbidden
+[stage] upload of shard-009 failed, retrying in 30s (1/3)
+  [20/180] medium-files/shard-009
+  [21/180] large-files/table-000.parquet
+  [22/180] large-files/array-000.h5
+  [23/180] large-files/table-001.parquet
+  [24/180] large-files/array-001.h5
+  [25/180] large-files/table-002.parquet
+  [26/180] large-files/array-002.h5
+  [27/180] large-files/table-003.parquet
+  [28/180] large-files/array-003.h5
+  [29/180] large-files/table-004.parquet
+[rclone] copyto /tmp/stress-scratch/stage/polybox/large-files/array-004.h5 polybox:renku-storage-test/data/S/large-files/array-004.h5 failed (exit 1):
+2026/10/05 09:25:54 ERROR : array-004.h5: Failed to copy: uploading chunk failed: Sabre\DAV\Exception\Forbidden: 403 Forbidden
+2026/10/05 09:25:54 ERROR : Attempt 4/5 failed with 1 errors and: uploading chunk failed: Sabre\DAV\Exception\Forbidden: 403 Forbidden
+2026/10/05 09:25:57 ERROR : array-004.h5: Failed to copy: uploading chunk failed: Sabre\DAV\Exception\Forbidden: 403 Forbidden
+2026/10/05 09:25:57 ERROR : Attempt 5/5 failed with 1 errors and: uploading chunk failed: Sabre\DAV\Exception\Forbidden: 403 Forbidden
+2026/10/05 09:25:57 NOTICE: Failed to copyto: uploading chunk failed: Sabre\DAV\Exception\Forbidden: 403 Forbidden
+[stage] upload of array-004.h5 failed, retrying in 30s (1/3)
+  [30/180] large-files/array-004.h5
+[rclone] copyto /tmp/stress-scratch/stage/polybox/fio-pool/rep-00/file-00.bin polybox:renku-storage-test/data/S/fio-pool/rep-00/file-00.bin failed (exit 1):
+2026/10/05 09:27:00 ERROR : file-00.bin: Failed to copy: chunked upload couldn't purge upload directory: Sabre\DAV\Exception\Forbidden: 403 Forbidden
+2026/10/05 09:27:00 ERROR : Attempt 4/5 failed with 1 errors and: chunked upload couldn't purge upload directory: Sabre\DAV\Exception\Forbidden: 403 Forbidden
+2026/10/05 09:27:02 ERROR : file-00.bin: Failed to copy: uploading chunk failed: Sabre\DAV\Exception\Forbidden: 403 Forbidden
+2026/10/05 09:27:02 ERROR : Attempt 5/5 failed with 1 errors and: uploading chunk failed: Sabre\DAV\Exception\Forbidden: 403 Forbidden
+2026/10/05 09:27:02 NOTICE: Failed to copyto: uploading chunk failed: Sabre\DAV\Exception\Forbidden: 403 Forbidden
+[stage] upload of file-00.bin failed, retrying in 30s (1/3)
+  [31/180] fio-pool/rep-00/file-00.bin
+  [32/180] fio-pool/rep-00/file-01.bin
+  [33/180] fio-pool/rep-00/file-02.bin
+  [34/180] fio-pool/rep-00/file-03.bin
+  [35/180] fio-pool/rep-00/file-04.bin
+  [36/180] fio-pool/rep-00/file-05.bin
+[rclone] copyto /tmp/stress-scratch/stage/polybox/fio-pool/rep-00/file-06.bin polybox:renku-storage-test/data/S/fio-pool/rep-00/file-06.bin failed (exit 1):
+2026/10/05 09:28:05 ERROR : file-06.bin: Failed to copy: uploading chunk failed: Sabre\DAV\Exception\Forbidden: 403 Forbidden
+2026/10/05 09:28:05 ERROR : Attempt 4/5 failed with 1 errors and: uploading chunk failed: Sabre\DAV\Exception\Forbidden: 403 Forbidden
+2026/10/05 09:28:05 ERROR : file-06.bin: Failed to copy: chunked upload couldn't purge upload directory: Sabre\DAV\Exception\Forbidden: 403 Forbidden
+2026/10/05 09:28:05 ERROR : Attempt 5/5 failed with 1 errors and: chunked upload couldn't purge upload directory: Sabre\DAV\Exception\Forbidden: 403 Forbidden
+2026/10/05 09:28:05 NOTICE: Failed to copyto: chunked upload couldn't purge upload directory: Sabre\DAV\Exception\Forbidden: 403 Forbidden
+[stage] upload of file-06.bin failed, retrying in 30s (1/3)
+  [37/180] fio-pool/rep-00/file-06.bin
+  [38/180] fio-pool/rep-00/file-07.bin
+  [39/180] fio-pool/rep-00/file-08.bin
+  [40/180] fio-pool/rep-00/file-09.bin
+  [41/180] fio-pool/rep-00/file-10.bin
+[rclone] copyto /tmp/stress-scratch/stage/polybox/fio-pool/rep-00/file-11.bin polybox:renku-storage-test/data/S/fio-pool/rep-00/file-11.bin failed (exit 1):
+2026/10/05 09:29:03 ERROR : file-11.bin: Failed to copy: chunked upload couldn't purge upload directory: Sabre\DAV\Exception\Forbidden: 403 Forbidden
+2026/10/05 09:29:03 ERROR : Attempt 4/5 failed with 1 errors and: chunked upload couldn't purge upload directory: Sabre\DAV\Exception\Forbidden: 403 Forbidden
+2026/10/05 09:29:03 ERROR : file-11.bin: Failed to copy: making upload directory failed: The resource you tried to create already exists: Sabre\DAV\Exception\MethodNotAllowed: 405 Method Not Allowed
+2026/10/05 09:29:03 ERROR : Attempt 5/5 failed with 1 errors and: making upload directory failed: The resource you tried to create already exists: Sabre\DAV\Exception\MethodNotAllowed: 405 Method Not Allowed
+2026/10/05 09:29:03 NOTICE: Failed to copyto: making upload directory failed: The resource you tried to create already exists: Sabre\DAV\Exception\MethodNotAllowed: 405 Method Not Allowed
+[stage] upload of file-11.bin failed, retrying in 30s (1/3)
+[rclone] copyto /tmp/stress-scratch/stage/polybox/fio-pool/rep-00/file-11.bin polybox:renku-storage-test/data/S/fio-pool/rep-00/file-11.bin failed (exit 1):
+2026/10/05 09:29:39 ERROR : file-11.bin: Failed to copy: uploading chunk failed: Sabre\DAV\Exception\Forbidden: 403 Forbidden
+2026/10/05 09:29:39 ERROR : Attempt 4/5 failed with 1 errors and: uploading chunk failed: Sabre\DAV\Exception\Forbidden: 403 Forbidden
+2026/10/05 09:29:39 ERROR : file-11.bin: Failed to copy: chunked upload couldn't purge upload directory: Sabre\DAV\Exception\Forbidden: 403 Forbidden
+2026/10/05 09:29:39 ERROR : Attempt 5/5 failed with 1 errors and: chunked upload couldn't purge upload directory: Sabre\DAV\Exception\Forbidden: 403 Forbidden
+2026/10/05 09:29:39 NOTICE: Failed to copyto: chunked upload couldn't purge upload directory: Sabre\DAV\Exception\Forbidden: 403 Forbidden
+[stage] upload of file-11.bin failed, retrying in 60s (2/3)
+  [42/180] fio-pool/rep-00/file-11.bin
+  [43/180] fio-pool/rep-00/file-12.bin
+  [44/180] fio-pool/rep-00/file-13.bin
+  [45/180] fio-pool/rep-00/file-14.bin
+  [46/180] fio-pool/rep-00/file-15.bin
+  [47/180] fio-pool/rep-00/file-16.bin
+  [48/180] fio-pool/rep-00/file-17.bin
+  [49/180] fio-pool/rep-00/file-18.bin
+  [50/180] fio-pool/rep-00/file-19.bin
+  [51/180] fio-pool/rep-00/file-20.bin
+  [52/180] fio-pool/rep-00/file-21.bin
+  [53/180] fio-pool/rep-00/file-22.bin
+  [54/180] fio-pool/rep-00/file-23.bin
+  [55/180] fio-pool/rep-00/file-24.bin
+  [56/180] fio-pool/rep-00/file-25.bin
+  [57/180] fio-pool/rep-00/file-26.bin
+  [58/180] fio-pool/rep-00/file-27.bin
+  [59/180] fio-pool/rep-00/file-28.bin
+  [60/180] fio-pool/rep-00/file-29.bin
+  [61/180] fio-pool/rep-01/file-00.bin
+  [62/180] fio-pool/rep-01/file-01.bin
+  [63/180] fio-pool/rep-01/file-02.bin
+  [64/180] fio-pool/rep-01/file-03.bin
+  [65/180] fio-pool/rep-01/file-04.bin
+  [66/180] fio-pool/rep-01/file-05.bin
+  [67/180] fio-pool/rep-01/file-06.bin
+  [68/180] fio-pool/rep-01/file-07.bin
+  [69/180] fio-pool/rep-01/file-08.bin
+  [70/180] fio-pool/rep-01/file-09.bin
+  [71/180] fio-pool/rep-01/file-10.bin
+  [72/180] fio-pool/rep-01/file-11.bin
+  [73/180] fio-pool/rep-01/file-12.bin
+  [74/180] fio-pool/rep-01/file-13.bin
+  [75/180] fio-pool/rep-01/file-14.bin
+  [76/180] fio-pool/rep-01/file-15.bin
+  [77/180] fio-pool/rep-01/file-16.bin
+  [78/180] fio-pool/rep-01/file-17.bin
+  [79/180] fio-pool/rep-01/file-18.bin
+  [80/180] fio-pool/rep-01/file-19.bin
+  [81/180] fio-pool/rep-01/file-20.bin
+  [82/180] fio-pool/rep-01/file-21.bin
+  [83/180] fio-pool/rep-01/file-22.bin
+  [84/180] fio-pool/rep-01/file-23.bin
+  [85/180] fio-pool/rep-01/file-24.bin
+  [86/180] fio-pool/rep-01/file-25.bin
+  [87/180] fio-pool/rep-01/file-26.bin
+  [88/180] fio-pool/rep-01/file-27.bin
+  [89/180] fio-pool/rep-01/file-28.bin
+  [90/180] fio-pool/rep-01/file-29.bin
+  [91/180] fio-pool/rep-02/file-00.bin
+  [92/180] fio-pool/rep-02/file-01.bin
+  [93/180] fio-pool/rep-02/file-02.bin
+  [94/180] fio-pool/rep-02/file-03.bin
+  [95/180] fio-pool/rep-02/file-04.bin
+  [96/180] fio-pool/rep-02/file-05.bin
+  [97/180] fio-pool/rep-02/file-06.bin
+  [98/180] fio-pool/rep-02/file-07.bin
+  [99/180] fio-pool/rep-02/file-08.bin
+  [100/180] fio-pool/rep-02/file-09.bin
+  [101/180] fio-pool/rep-02/file-10.bin
+  [102/180] fio-pool/rep-02/file-11.bin
+  [103/180] fio-pool/rep-02/file-12.bin
+  [104/180] fio-pool/rep-02/file-13.bin
+  [105/180] fio-pool/rep-02/file-14.bin
+  [106/180] fio-pool/rep-02/file-15.bin
+  [107/180] fio-pool/rep-02/file-16.bin
+  [108/180] fio-pool/rep-02/file-17.bin
+  [109/180] fio-pool/rep-02/file-18.bin
+  [110/180] fio-pool/rep-02/file-19.bin
+  [111/180] fio-pool/rep-02/file-20.bin
+  [112/180] fio-pool/rep-02/file-21.bin
+  [113/180] fio-pool/rep-02/file-22.bin
+  [114/180] fio-pool/rep-02/file-23.bin
+  [115/180] fio-pool/rep-02/file-24.bin
+  [116/180] fio-pool/rep-02/file-25.bin
+  [117/180] fio-pool/rep-02/file-26.bin
+  [118/180] fio-pool/rep-02/file-27.bin
+  [119/180] fio-pool/rep-02/file-28.bin
+  [120/180] fio-pool/rep-02/file-29.bin
+  [121/180] fio-pool/rep-03/file-00.bin
+  [122/180] fio-pool/rep-03/file-01.bin
+  [123/180] fio-pool/rep-03/file-02.bin
+  [124/180] fio-pool/rep-03/file-03.bin
+  [125/180] fio-pool/rep-03/file-04.bin
+  [126/180] fio-pool/rep-03/file-05.bin
+  [127/180] fio-pool/rep-03/file-06.bin
+  [128/180] fio-pool/rep-03/file-07.bin
+  [129/180] fio-pool/rep-03/file-08.bin
+  [130/180] fio-pool/rep-03/file-09.bin
+  [131/180] fio-pool/rep-03/file-10.bin
+  [132/180] fio-pool/rep-03/file-11.bin
+  [133/180] fio-pool/rep-03/file-12.bin
+  [134/180] fio-pool/rep-03/file-13.bin
+  [135/180] fio-pool/rep-03/file-14.bin
+  [136/180] fio-pool/rep-03/file-15.bin
+  [137/180] fio-pool/rep-03/file-16.bin
+  [138/180] fio-pool/rep-03/file-17.bin
+  [139/180] fio-pool/rep-03/file-18.bin
+  [140/180] fio-pool/rep-03/file-19.bin
+  [141/180] fio-pool/rep-03/file-20.bin
+  [142/180] fio-pool/rep-03/file-21.bin
+  [143/180] fio-pool/rep-03/file-22.bin
+  [144/180] fio-pool/rep-03/file-23.bin
+  [145/180] fio-pool/rep-03/file-24.bin
+  [146/180] fio-pool/rep-03/file-25.bin
+  [147/180] fio-pool/rep-03/file-26.bin
+  [148/180] fio-pool/rep-03/file-27.bin
+  [149/180] fio-pool/rep-03/file-28.bin
+  [150/180] fio-pool/rep-03/file-29.bin
+  [151/180] fio-pool/rep-04/file-00.bin
+  [152/180] fio-pool/rep-04/file-01.bin
+  [153/180] fio-pool/rep-04/file-02.bin
+  [154/180] fio-pool/rep-04/file-03.bin
+  [155/180] fio-pool/rep-04/file-04.bin
+  [156/180] fio-pool/rep-04/file-05.bin
+  [157/180] fio-pool/rep-04/file-06.bin
+  [158/180] fio-pool/rep-04/file-07.bin
+  [159/180] fio-pool/rep-04/file-08.bin
+  [160/180] fio-pool/rep-04/file-09.bin
+  [161/180] fio-pool/rep-04/file-10.bin
+  [162/180] fio-pool/rep-04/file-11.bin
+  [163/180] fio-pool/rep-04/file-12.bin
+  [164/180] fio-pool/rep-04/file-13.bin
+  [165/180] fio-pool/rep-04/file-14.bin
+  [166/180] fio-pool/rep-04/file-15.bin
+  [167/180] fio-pool/rep-04/file-16.bin
+  [168/180] fio-pool/rep-04/file-17.bin
+  [169/180] fio-pool/rep-04/file-18.bin
+  [170/180] fio-pool/rep-04/file-19.bin
+  [171/180] fio-pool/rep-04/file-20.bin
+  [172/180] fio-pool/rep-04/file-21.bin
+  [173/180] fio-pool/rep-04/file-22.bin
+  [174/180] fio-pool/rep-04/file-23.bin
+  [175/180] fio-pool/rep-04/file-24.bin
+  [176/180] fio-pool/rep-04/file-25.bin
+  [177/180] fio-pool/rep-04/file-26.bin
+  [178/180] fio-pool/rep-04/file-27.bin
+  [179/180] fio-pool/rep-04/file-28.bin
+  [180/180] fio-pool/rep-04/file-29.bin
+[stage] waiting for the mount to show /home/renku/work/stress-test-polybox/data/S/fio-pool/rep-04/file-29.bin ...
+[stage] visible after 1s
+[stage] local: 0/180 units already staged
+  [1/180] small-files/shard-000
+  [2/180] small-files/shard-001
+  [3/180] small-files/shard-002
+  [4/180] small-files/shard-003
+  [5/180] small-files/shard-004
+  [6/180] small-files/shard-005
+  [7/180] small-files/shard-006
+  [8/180] small-files/shard-007
+  [9/180] small-files/shard-008
+  [10/180] small-files/shard-009
+  [11/180] medium-files/shard-000
+  [12/180] medium-files/shard-001
+  [13/180] medium-files/shard-002
+  [14/180] medium-files/shard-003
+  [15/180] medium-files/shard-004
+  [16/180] medium-files/shard-005
+  [17/180] medium-files/shard-006
+  [18/180] medium-files/shard-007
+  [19/180] medium-files/shard-008
+  [20/180] medium-files/shard-009
+  [21/180] large-files/table-000.parquet
+  [22/180] large-files/array-000.h5
+  [23/180] large-files/table-001.parquet
+  [24/180] large-files/array-001.h5
+  [25/180] large-files/table-002.parquet
+  [26/180] large-files/array-002.h5
+  [27/180] large-files/table-003.parquet
+  [28/180] large-files/array-003.h5
+  [29/180] large-files/table-004.parquet
+  [30/180] large-files/array-004.h5
+  [31/180] fio-pool/rep-00/file-00.bin
+  [32/180] fio-pool/rep-00/file-01.bin
+  [33/180] fio-pool/rep-00/file-02.bin
+  [34/180] fio-pool/rep-00/file-03.bin
+  [35/180] fio-pool/rep-00/file-04.bin
+  [36/180] fio-pool/rep-00/file-05.bin
+  [37/180] fio-pool/rep-00/file-06.bin
+  [38/180] fio-pool/rep-00/file-07.bin
+  [39/180] fio-pool/rep-00/file-08.bin
+  [40/180] fio-pool/rep-00/file-09.bin
+  [41/180] fio-pool/rep-00/file-10.bin
+  [42/180] fio-pool/rep-00/file-11.bin
+  [43/180] fio-pool/rep-00/file-12.bin
+  [44/180] fio-pool/rep-00/file-13.bin
+  [45/180] fio-pool/rep-00/file-14.bin
+  [46/180] fio-pool/rep-00/file-15.bin
+  [47/180] fio-pool/rep-00/file-16.bin
+  [48/180] fio-pool/rep-00/file-17.bin
+  [49/180] fio-pool/rep-00/file-18.bin
+  [50/180] fio-pool/rep-00/file-19.bin
+  [51/180] fio-pool/rep-00/file-20.bin
+  [52/180] fio-pool/rep-00/file-21.bin
+  [53/180] fio-pool/rep-00/file-22.bin
+  [54/180] fio-pool/rep-00/file-23.bin
+  [55/180] fio-pool/rep-00/file-24.bin
+  [56/180] fio-pool/rep-00/file-25.bin
+  [57/180] fio-pool/rep-00/file-26.bin
+  [58/180] fio-pool/rep-00/file-27.bin
+  [59/180] fio-pool/rep-00/file-28.bin
+  [60/180] fio-pool/rep-00/file-29.bin
+  [61/180] fio-pool/rep-01/file-00.bin
+  [62/180] fio-pool/rep-01/file-01.bin
+  [63/180] fio-pool/rep-01/file-02.bin
+  [64/180] fio-pool/rep-01/file-03.bin
+  [65/180] fio-pool/rep-01/file-04.bin
+  [66/180] fio-pool/rep-01/file-05.bin
+  [67/180] fio-pool/rep-01/file-06.bin
+  [68/180] fio-pool/rep-01/file-07.bin
+  [69/180] fio-pool/rep-01/file-08.bin
+  [70/180] fio-pool/rep-01/file-09.bin
+  [71/180] fio-pool/rep-01/file-10.bin
+  [72/180] fio-pool/rep-01/file-11.bin
+  [73/180] fio-pool/rep-01/file-12.bin
+  [74/180] fio-pool/rep-01/file-13.bin
+  [75/180] fio-pool/rep-01/file-14.bin
+  [76/180] fio-pool/rep-01/file-15.bin
+  [77/180] fio-pool/rep-01/file-16.bin
+  [78/180] fio-pool/rep-01/file-17.bin
+  [79/180] fio-pool/rep-01/file-18.bin
+  [80/180] fio-pool/rep-01/file-19.bin
+  [81/180] fio-pool/rep-01/file-20.bin
+  [82/180] fio-pool/rep-01/file-21.bin
+  [83/180] fio-pool/rep-01/file-22.bin
+  [84/180] fio-pool/rep-01/file-23.bin
+  [85/180] fio-pool/rep-01/file-24.bin
+  [86/180] fio-pool/rep-01/file-25.bin
+  [87/180] fio-pool/rep-01/file-26.bin
+  [88/180] fio-pool/rep-01/file-27.bin
+  [89/180] fio-pool/rep-01/file-28.bin
+  [90/180] fio-pool/rep-01/file-29.bin
+  [91/180] fio-pool/rep-02/file-00.bin
+  [92/180] fio-pool/rep-02/file-01.bin
+  [93/180] fio-pool/rep-02/file-02.bin
+  [94/180] fio-pool/rep-02/file-03.bin
+  [95/180] fio-pool/rep-02/file-04.bin
+  [96/180] fio-pool/rep-02/file-05.bin
+  [97/180] fio-pool/rep-02/file-06.bin
+  [98/180] fio-pool/rep-02/file-07.bin
+  [99/180] fio-pool/rep-02/file-08.bin
+  [100/180] fio-pool/rep-02/file-09.bin
+  [101/180] fio-pool/rep-02/file-10.bin
+  [102/180] fio-pool/rep-02/file-11.bin
+  [103/180] fio-pool/rep-02/file-12.bin
+  [104/180] fio-pool/rep-02/file-13.bin
+  [105/180] fio-pool/rep-02/file-14.bin
+  [106/180] fio-pool/rep-02/file-15.bin
+  [107/180] fio-pool/rep-02/file-16.bin
+  [108/180] fio-pool/rep-02/file-17.bin
+  [109/180] fio-pool/rep-02/file-18.bin
+  [110/180] fio-pool/rep-02/file-19.bin
+  [111/180] fio-pool/rep-02/file-20.bin
+  [112/180] fio-pool/rep-02/file-21.bin
+  [113/180] fio-pool/rep-02/file-22.bin
+  [114/180] fio-pool/rep-02/file-23.bin
+  [115/180] fio-pool/rep-02/file-24.bin
+  [116/180] fio-pool/rep-02/file-25.bin
+  [117/180] fio-pool/rep-02/file-26.bin
+  [118/180] fio-pool/rep-02/file-27.bin
+  [119/180] fio-pool/rep-02/file-28.bin
+  [120/180] fio-pool/rep-02/file-29.bin
+  [121/180] fio-pool/rep-03/file-00.bin
+  [122/180] fio-pool/rep-03/file-01.bin
+  [123/180] fio-pool/rep-03/file-02.bin
+  [124/180] fio-pool/rep-03/file-03.bin
+  [125/180] fio-pool/rep-03/file-04.bin
+  [126/180] fio-pool/rep-03/file-05.bin
+  [127/180] fio-pool/rep-03/file-06.bin
+  [128/180] fio-pool/rep-03/file-07.bin
+  [129/180] fio-pool/rep-03/file-08.bin
+  [130/180] fio-pool/rep-03/file-09.bin
+  [131/180] fio-pool/rep-03/file-10.bin
+  [132/180] fio-pool/rep-03/file-11.bin
+  [133/180] fio-pool/rep-03/file-12.bin
+  [134/180] fio-pool/rep-03/file-13.bin
+  [135/180] fio-pool/rep-03/file-14.bin
+  [136/180] fio-pool/rep-03/file-15.bin
+  [137/180] fio-pool/rep-03/file-16.bin
+  [138/180] fio-pool/rep-03/file-17.bin
+  [139/180] fio-pool/rep-03/file-18.bin
+  [140/180] fio-pool/rep-03/file-19.bin
+  [141/180] fio-pool/rep-03/file-20.bin
+  [142/180] fio-pool/rep-03/file-21.bin
+  [143/180] fio-pool/rep-03/file-22.bin
+  [144/180] fio-pool/rep-03/file-23.bin
+  [145/180] fio-pool/rep-03/file-24.bin
+  [146/180] fio-pool/rep-03/file-25.bin
+  [147/180] fio-pool/rep-03/file-26.bin
+  [148/180] fio-pool/rep-03/file-27.bin
+  [149/180] fio-pool/rep-03/file-28.bin
+  [150/180] fio-pool/rep-03/file-29.bin
+  [151/180] fio-pool/rep-04/file-00.bin
+  [152/180] fio-pool/rep-04/file-01.bin
+  [153/180] fio-pool/rep-04/file-02.bin
+  [154/180] fio-pool/rep-04/file-03.bin
+  [155/180] fio-pool/rep-04/file-04.bin
+  [156/180] fio-pool/rep-04/file-05.bin
+  [157/180] fio-pool/rep-04/file-06.bin
+  [158/180] fio-pool/rep-04/file-07.bin
+  [159/180] fio-pool/rep-04/file-08.bin
+  [160/180] fio-pool/rep-04/file-09.bin
+  [161/180] fio-pool/rep-04/file-10.bin
+  [162/180] fio-pool/rep-04/file-11.bin
+  [163/180] fio-pool/rep-04/file-12.bin
+  [164/180] fio-pool/rep-04/file-13.bin
+  [165/180] fio-pool/rep-04/file-14.bin
+  [166/180] fio-pool/rep-04/file-15.bin
+  [167/180] fio-pool/rep-04/file-16.bin
+  [168/180] fio-pool/rep-04/file-17.bin
+  [169/180] fio-pool/rep-04/file-18.bin
+  [170/180] fio-pool/rep-04/file-19.bin
+  [171/180] fio-pool/rep-04/file-20.bin
+  [172/180] fio-pool/rep-04/file-21.bin
+  [173/180] fio-pool/rep-04/file-22.bin
+  [174/180] fio-pool/rep-04/file-23.bin
+  [175/180] fio-pool/rep-04/file-24.bin
+  [176/180] fio-pool/rep-04/file-25.bin
+  [177/180] fio-pool/rep-04/file-26.bin
+  [178/180] fio-pool/rep-04/file-27.bin
+  [179/180] fio-pool/rep-04/file-28.bin
+  [180/180] fio-pool/rep-04/file-29.bin
+  project  append             PASS
+  project  overwrite_middle   PASS
+  project  rename_atomic      PASS
+  project  rename_dir         PASS
+  project  flock              PASS
+  project  fcntl_lock         PASS
+  project  mmap_write         PASS
+  project  sqlite             FAIL OperationalError: database is locked
+  project  sqlite_wal         FAIL OperationalError: database is locked
+  project  symlink            PASS
+  project  hardlink           FAIL OSError: [Errno 95] Operation not supported: '/home/renku/work/renku-store/work/S/semantics-1791193082/c_hardlink/h1.txt' -> '/home/renku/work/renku-store/work/S/semantics-1791193082/c_hardlink/h2.txt'
+  project  chmod_exec         FAIL PermissionError: [Errno 1] Operation not permitted: '/home/renku/work/renku-store/work/S/semantics-1791193082/c_chmod_exec/run.sh'
+  project  sparse_seek        PASS
+  project  fsync              PASS
+  project  case_sensitive     FAIL AssertionError: filesystem is case-insensitive
+  project  mtime_preserved    FAIL PermissionError: [Errno 1] Operation not permitted
+  project  git                FAIL RuntimeError: git init: fatal: could not set 'core.filemode' to 'false'
+  project  git_no_safedir     FAIL RuntimeError: git init: fatal: could not set 'core.filemode' to 'false'
+  azure    append             PASS
+  azure    overwrite_middle   PASS
+  azure    rename_atomic      PASS
+  azure    rename_dir         PASS
+  azure    flock              PASS
+  azure    fcntl_lock         PASS
+  azure    mmap_write         PASS
+  azure    sqlite             PASS
+  azure    sqlite_wal         PASS
+  azure    symlink            FAIL OSError: [Errno 5] Input/output error: 'target.txt' -> '/home/renku/work/stress-test-azure/renku-stress/work/S/semantics-1791193097/c_symlink/link.txt'
+  azure    hardlink           FAIL OSError: [Errno 38] Function not implemented: '/home/renku/work/stress-test-azure/renku-stress/work/S/semantics-1791193097/c_hardlink/h1.txt' -> '/home/renku/work/stress-test-azure/renku-stress/work/S/semantics-1791193097/c_hardlink/h2.txt'
+  azure    chmod_exec         FAIL PermissionError: [Errno 13] Permission denied: '/home/renku/work/stress-test-azure/renku-stress/work/S/semantics-1791193097/c_chmod_exec/run.sh'
+  azure    sparse_seek        PASS
+  azure    fsync              PASS
+  azure    case_sensitive     PASS
+  azure    mtime_preserved    PASS
+  azure    git                PASS
+  azure    git_no_safedir     FAIL RuntimeError: git add: 	git config --global --add safe.directory /home/renku/work/stress-test-azure/renku-stress/work/S/semantics-1791193097/c_git_no_safedir/repo
+  polybox  append             PASS
+  polybox  overwrite_middle   PASS
+  polybox  rename_atomic      PASS
+  polybox  rename_dir         PASS
+  polybox  flock              PASS
+  polybox  fcntl_lock         PASS
+  polybox  mmap_write         PASS
+  polybox  sqlite             PASS
+  polybox  sqlite_wal         PASS
+  polybox  symlink            FAIL OSError: [Errno 5] Input/output error: 'target.txt' -> '/home/renku/work/stress-test-polybox/work/S/semantics-1791193098/c_symlink/link.txt'
+  polybox  hardlink           FAIL OSError: [Errno 38] Function not implemented: '/home/renku/work/stress-test-polybox/work/S/semantics-1791193098/c_hardlink/h1.txt' -> '/home/renku/work/stress-test-polybox/work/S/semantics-1791193098/c_hardlink/h2.txt'
+  polybox  chmod_exec         FAIL PermissionError: [Errno 13] Permission denied: '/home/renku/work/stress-test-polybox/work/S/semantics-1791193098/c_chmod_exec/run.sh'
+  polybox  sparse_seek        PASS
+  polybox  fsync              PASS
+  polybox  case_sensitive     PASS
+  polybox  mtime_preserved    PASS
+  polybox  git                PASS
+  polybox  git_no_safedir     FAIL RuntimeError: git add: 	git config --global --add safe.directory /home/renku/work/stress-test-polybox/work/S/semantics-1791193098/c_git_no_safedir/repo
+  local    append             PASS
+  local    overwrite_middle   PASS
+  local    rename_atomic      PASS
+  local    rename_dir         PASS
+  local    flock              PASS
+  local    fcntl_lock         PASS
+  local    mmap_write         PASS
+  local    sqlite             PASS
+  local    sqlite_wal         PASS
+  local    symlink            PASS
+  local    hardlink           PASS
+  local    chmod_exec         PASS
+  local    sparse_seek        PASS
+  local    fsync              PASS
+  local    case_sensitive     PASS
+  local    mtime_preserved    PASS
+  local    git                PASS
+  local    git_no_safedir     PASS
+
+[rep 1/5] order: project -> azure -> local -> polybox
+  [project] fio
+  [project] metadata
+  [project] realistic

@@ -29,6 +29,7 @@ HEADLINE = {
     "W1": ("throughput_mb_s", True), "W2": ("throughput_mb_s", True), "W3": ("iops", True),
     "W4": ("throughput_mb_s", True), "W5": ("ops_per_s", True), "W6": ("ops_per_s", True),
     "W7": ("duration_s", False), "W8": ("duration_s", False), "W9": ("throughput_mb_s", True),
+    "W11": ("ops_per_s", True),
 }
 UNITS = {"throughput_mb_s": "MB/s", "iops": "IOPS", "ops_per_s": "ops/s", "duration_s": "s"}
 # Fixed categorical order: colour follows the backend, never its rank.
@@ -256,6 +257,10 @@ def main() -> None:
     if not be.empty:
         print("\nBreak-even passes for copying to project storage first:\n")
         print(be.to_string(index=False))
+    sw = s[s["workload"] == "W11"]
+    if len(sw):
+        print("\nParallelism sweep W11 (median files/s by concurrent readers):\n")
+        print(sw.pivot_table(index="threads", columns="backend", values="median").round(1).to_string())
     noisy = s[s["noisy"]]
     if len(noisy):
         print(f"\n{len(noisy)} noisy cells (CV > {NOISY_CV:.0%}) - rerun these:")

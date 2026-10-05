@@ -26,3 +26,6 @@ url = https://polybox.ethz.ch/remote.php/dav/files/ETH_USERNAME/
 user = ETH_USERNAME
 # app password from PolyBox Settings -> Security, obscured with: rclone obscure 'APP_PASSWORD'
 pass = OBSCURED_APP_PASSWORD
+# Disable Nextcloud chunked uploads: after one failed chunked attempt PolyBox keeps the upload folder
+# (403 on purge, 405 on re-create), so every retry of that file fails. Single PUTs avoid it.
+nextcloud_chunk_size = 0
