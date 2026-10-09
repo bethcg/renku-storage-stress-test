@@ -12,6 +12,10 @@ Usage (via the wrapper):
     bash scripts/run_all.sh --tier S --reps 5
     bash scripts/run_all.sh --tier L --reps 3 --backends project,azure
     bash scripts/run_all.sh --tier S --start-rep 3      # resume after an interruption
+
+Project storage and session disk serve freshly written data from a cache below the page cache,
+so staging and measuring must be >= --min-data-age-h apart (default 6 h): the run refuses to
+measure otherwise. Stage first (it stops at the age check), then rerun with --skip-stage.
 """
 from __future__ import annotations
 
@@ -26,7 +30,8 @@ import uuid
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
-from lib import ResultWriter, load_script, load_targets, load_tier, rclone  # noqa: E402
+from lib import (MIN_DATA_AGE_H, ResultWriter, data_root, load_script, load_targets, load_tier,  # noqa: E402
+                 rclone, require_aged)
 
 stage_mod = load_script("02_stage_data.py")
 fio_mod = load_script("03_run_fio.py")
@@ -84,6 +89,8 @@ def main() -> None:
     ap.add_argument("--workloads", default=",".join(ALL))
     ap.add_argument("--seed", type=int, default=int(dt.date.today().strftime("%Y%m%d")))
     ap.add_argument("--skip-stage", action="store_true")
+    ap.add_argument("--min-data-age-h", type=float, default=MIN_DATA_AGE_H,
+                    help="refuse to read project/local data staged more recently than this (0 disables)")
     a = ap.parse_args()
 
     cfg = load_targets()
@@ -104,6 +111,16 @@ def main() -> None:
     if not a.skip_stage:
         for b in backends:
             stage_mod.stage(b, spec, writer)
+
+    # Freshly staged data reads too fast on project/local (lib.MIN_DATA_AGE_H), so stage in one
+    # invocation and measure in a later one with --skip-stage.
+    ages = {}
+    for b in backends:
+        t = cfg["targets"][b]
+        units = [data_root(t, spec["name"]) / u.relpath for u in stage_mod.gen.plan_units(spec)]
+        ages[b] = require_aged(t, units, a.min_data_age_h, "staged data")
+    writer.write(workload="RUN", variant="data-age", backend="-", data_age_h=ages)
+    print(f"[run] hours since staging: {ages}")
 
     if "W10" in wl and a.start_rep == 0:
         for b in backends:

@@ -1,0 +1,17 @@
+[run] id=20261005T1731-78ce tier=S reps=2 backends=['project', 'local'] seed=20261005
+[run] results -> /home/renku/work/renku-storage-stress-test/results/S/elisabet-cap-52039ca53e6c-0_2026-10-05.jsonl
+[preflight] tier S needs ~22.7 GB per backend
+  project  ok: 59.9 GB free
+  local    ok: 175.7 GB free
+
+[rep 2/2] order: project -> local
+  [project] fio
+  [project] metadata
+  [project] realistic
+  [project] ingress
+  [local] fio
+  [local] metadata
+  [local] realistic
+  [local] ingress
+
+[run] done. Analyse with: python analysis/analyze.py /home/renku/work/renku-storage-stress-test/results/S

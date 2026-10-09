@@ -1,7 +1,7 @@
 tier,case,connector,connector_mb_s,project_read_mb_s,project_write_mb_s,breakeven_passes
-Sq,large sequential files,azure,24.5,21.1,62.4,inf
-Sq,large sequential files,polybox,4.9,21.1,62.4,1.41
-Sq,"small files, 1 reader",azure,16.9,5.3,62.4,inf
-Sq,"small files, 1 reader",polybox,0.5,5.3,62.4,1.12
-Sq,"small files, 8 readers",azure,121.0,49.1,62.4,inf
-Sq,"small files, 8 readers",polybox,3.6,49.1,62.4,1.14
+S,large sequential files,azure,67.0,79.5,151.1,9.19
+S,large sequential files,polybox,100.6,79.5,151.1,inf
+S,"small files, 1 reader",azure,11.6,3.3,2.9,inf
+S,"small files, 1 reader",polybox,0.5,3.3,2.9,1.37
+S,"small files, 8 readers",azure,74.7,20.9,2.9,inf
+S,"small files, 8 readers",polybox,3.7,20.9,2.9,2.77

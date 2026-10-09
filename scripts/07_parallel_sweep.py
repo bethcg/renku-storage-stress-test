@@ -4,6 +4,9 @@
 Reads shards of 100 KiB files (ML-dataset-like) with 1, 2, 4, ... threads, as a DataLoader with
 num_workers=N or a thread pool would. Every (rep, level) gets its own fresh shard, staged like the
 main dataset (connectors via the rclone API, never via the mount), so every measurement is cold.
+On project storage and session disk, shards must also be at least --min-data-age-h old: freshly
+written data is served by a cache below the page cache (see lib.MIN_DATA_AGE_H). The sweep run
+on 2026-10-05 read shards minutes after staging and overstated both backends 2.5-15x.
 Backend order and level order are shuffled per repetition.
 
 The data lives in data/<tier>-sweep/ on each backend, separate from the main dataset, because
@@ -13,6 +16,7 @@ Usage:
     python scripts/07_parallel_sweep.py --tier S --quick                 # smoke test
     python scripts/07_parallel_sweep.py --tier S                         # stage + run all backends
     python scripts/07_parallel_sweep.py --tier S --backends azure,polybox --skip-stage
+    python scripts/07_parallel_sweep.py --tier S --backends project,local --skip-stage   # >= 6 h after staging
 """
 from __future__ import annotations
 
@@ -25,8 +29,8 @@ from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
-from lib import (ResultWriter, data_root, drop_file_cache, load_script, load_targets, load_tier,  # noqa: E402
-                 load_yaml, parse_size, percentiles_ms, timer)
+from lib import (MIN_DATA_AGE_H, ResultWriter, data_root, data_age_h, drop_file_cache, load_script,  # noqa: E402
+                 load_targets, load_tier, load_yaml, parse_size, percentiles_ms, require_aged, timer)
 
 stage_mod = load_script("02_stage_data.py")
 real_mod = load_script("05_realistic_bench.py")
@@ -47,6 +51,11 @@ def sweep_spec(tier: str, quick: bool) -> dict:
                                                           "size": parse_size(sw["size"]), "shards": shards}}}
 
 
+def shard_dirs(t: dict, sp: dict, reps: range) -> list[Path]:
+    n = len(sp["levels"])
+    return [data_root(t, sp["name"]) / "sweep-files" / f"shard-{rep * n + li:03d}" for rep in reps for li in range(n)]
+
+
 def run(backend: str, sp: dict, rep: int, writer: ResultWriter, rng: random.Random) -> None:
     t = load_targets()["targets"][backend]
     order = list(enumerate(sp["levels"]))
@@ -63,11 +72,12 @@ def run(backend: str, sp: dict, rep: int, writer: ResultWriter, rng: random.Rand
             with ThreadPoolExecutor(n) as ex:
                 res = list(ex.map(real_mod._read_file, files))
         nbytes, errors = sum(r[1] for r in res), sum(r[2] for r in res)
+        age = data_age_h([d], include_reads=t["kind"] == "local")
         ops = len(files) / tm["s"]
         writer.write(backend=backend, workload="W11", variant=f"sweep-{n:02d}w", profile="sweep-files", rep=rep,
                      threads=n, files=len(files), bytes=nbytes, duration_s=round(tm["s"], 3),
                      throughput_mb_s=round(nbytes / 1e6 / tm["s"], 2), ops_per_s=round(ops, 1),
-                     list_s=round(tl["s"], 3), errors=errors, ok=errors == 0,
+                     list_s=round(tl["s"], 3), errors=errors, ok=errors == 0, data_age_h=age,
                      **percentiles_ms([r[0] for r in res]))
         print(f"  [{backend}] {n:2d} readers: {ops:8.1f} files/s  {nbytes / 1e6 / tm['s']:7.1f} MB/s", flush=True)
 
@@ -80,6 +90,8 @@ def main() -> None:
     ap.add_argument("--start-rep", type=int, default=0)
     ap.add_argument("--seed", type=int, default=int(dt.date.today().strftime("%Y%m%d")))
     ap.add_argument("--skip-stage", action="store_true")
+    ap.add_argument("--min-data-age-h", type=float, default=MIN_DATA_AGE_H,
+                    help="refuse to read project/local shards younger than this (0 disables)")
     a = ap.parse_args()
 
     cfg = load_targets()
@@ -93,6 +105,11 @@ def main() -> None:
     if not a.skip_stage:
         for b in backends:
             stage_mod.stage(b, sp)
+
+    for b in backends:
+        t = cfg["targets"][b]
+        age = require_aged(t, shard_dirs(t, sp, range(a.start_rep, sp["reps"])), a.min_data_age_h, "sweep data")
+        print(f"[sweep] {b}: newest shard staged {age} h ago", flush=True)
 
     for rep in range(a.start_rep, sp["reps"]):
         order = backends[:]

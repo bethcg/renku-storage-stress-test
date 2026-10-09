@@ -116,7 +116,8 @@ def w8(t, spec, rep, writer, backend):
             for nm in names:
                 _read_file(Path(dirpath) / nm)
                 count += 1
-    writer.write(**base, variant="walk-read", duration_s=round(tm["s"], 3), ops_per_s=round(count / tm["s"], 1),
+    # reads the tree it just extracted: page cache / rclone write cache, not remote reads
+    writer.write(**base, variant="walk-read", cache_state="warm", duration_s=round(tm["s"], 3), ops_per_s=round(count / tm["s"], 1),
                  files_seen=count, ok=count == n)
 
     with timer() as tm:

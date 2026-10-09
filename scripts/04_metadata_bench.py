@@ -78,7 +78,9 @@ def run(backend: str, spec: dict, rep: int, writer: ResultWriter) -> None:
 
         for op, (wall, lats, errs) in results.items():
             count = len(dirs) if op in ("mkdir", "list") else n
+            # stat and list run right after create, so attribute/directory caches serve them
             writer.write(backend=backend, workload="W5", variant=f"meta-{op}", profile="metadata",
+                         cache_state="warm" if op in ("stat", "list") else "cold",
                          rep=rep, threads=threads, files=count, bytes=(n * 1024 if op == "create" else 0),
                          duration_s=round(wall, 3), ops_per_s=round(count / max(wall, 1e-9), 1),
                          errors=errs, ok=errs == 0, **percentiles_ms(lats))

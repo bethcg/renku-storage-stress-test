@@ -243,11 +243,54 @@ def rclone(*args: str, check: bool = True) -> subprocess.CompletedProcess:
         raise
 
 
+# Recently touched data reads far faster than data at rest, even with the page cache dropped,
+# because a cache below the page cache serves it. Measured 2026-10-09 with 100 KiB files, 8 readers:
+#   project (Azure Files): written 60 s ago 437-528 files/s vs 165-183 at rest. Re-reading is NOT
+#     faster, so only writes count. Data read ~1 h after staging was inflated, >= 3 h was not.
+#   session disk (Azure disk, likely host cache): written 60 s ago 6,900-9,600 vs ~620 at rest, and
+#     re-reading a shard read earlier that day also gives ~9,800, so reads count too. That cache is
+#     size-bound, not time-bound, so the age below is a minimum, not a guarantee, for session disk.
+#   PolyBox (API-staged): no effect for re-reads.
+MIN_DATA_AGE_H = 6.0
+
+
+def data_age_h(paths: list[Path], include_reads: bool = False, sample: int = 5) -> float | None:
+    """Hours since the newest of `paths` was modified (or, with include_reads, also read).
+
+    For a shard folder its mtime is the last file added, so passing unit paths avoids stat'ing every
+    file. Reads are judged from the atime of up to `sample` files per folder (relatime updates atime
+    on the first read of a day); folder atimes are useless, since listing updates them.
+    """
+    stamps = []
+    for p in paths:
+        try:
+            st = p.stat()
+            stamps.append(st.st_mtime)
+            if include_reads:
+                files = [p] if p.is_file() else [e for _, e in zip(range(sample), os.scandir(p)) if e.is_file()]
+                stamps += [f.stat().st_atime for f in files]
+        except OSError:
+            pass
+    return round((time.time() - max(stamps)) / 3600, 2) if stamps else None
+
+
+def require_aged(target: dict, paths: list[Path], min_h: float, what: str) -> float | None:
+    """Refuse to measure block/local data touched less than `min_h` hours ago (see MIN_DATA_AGE_H).
+    Connector data is staged via the API and showed no such effect, so it is only recorded."""
+    age = data_age_h(paths, include_reads=target["kind"] == "local")
+    if target["kind"] in ("block", "local") and age is not None and age < min_h:
+        raise SystemExit(f"{target['name']}: {what} was written {age:.1f} h ago (< {min_h} h). Reads "
+                         f"would hit a cache below the page cache and look too fast. Wait, or pass "
+                         f"--min-data-age-h 0 to measure anyway (rows record data_age_h).")
+    return age
+
+
 def drop_file_cache(path: Path) -> None:
     """Ask the kernel to drop page cache for one file (works without root).
 
     Does NOT clear rclone's VFS cache on the node; that is handled by giving
-    every repetition fresh files that were uploaded out-of-band.
+    every repetition fresh files that were uploaded out-of-band. Nor does it clear caches
+    below the page cache on block/local backends; that is what require_aged() is for.
     """
     try:
         fd = os.open(path, os.O_RDONLY)

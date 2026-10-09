@@ -38,6 +38,18 @@ COLORS = {"project": "#2a78d6", "azure": "#eb6834", "polybox": "#1baf7a", "local
 KEYS = ["tier", "workload", "variant", "profile", "cache_state", "threads"]
 NOISY_CV = 0.15
 BASELINE = "project"
+# Rows that must not enter the analysis: (run_id, backends or None, extra column filters, reason)
+DROP_RUNS = [
+    ("20261005T0858-0887", None, {}, "partial rep 0 of the first run, interrupted at 10:12; it also read project "
+                                 "data ~1 h after staging, which is cache-inflated (lib.MIN_DATA_AGE_H)"),
+    ("01a9f5a5", {"project", "local"}, {}, "W11 sweep of 2026-10-05: read project/local shards minutes after "
+                                       "staging, 2.5-15x too fast; rerun on 2026-10-09 (PolyBox rows stay valid)"),
+    ("7d3be02a", {"project"}, {"rep": 0, "threads": [2, 16]},
+     "W11 rerun: shards 1 and 4 had been read twice that morning by the cache check; a third read on "
+     "Azure Files is ~2.5x faster (99.9 and 828 files/s vs 42-44 and 294-330 in the other reps)"),
+]
+# Rows written before 2026-10-09 labelled these cold, but they read what the step had just written
+WARM_VARIANTS = {("W5", "meta-stat"), ("W5", "meta-list"), ("W8", "walk-read")}
 
 
 def load(paths: list[Path]) -> pd.DataFrame:
@@ -54,6 +66,15 @@ def load(paths: list[Path]) -> pd.DataFrame:
     for k in KEYS:
         if k not in df:
             df[k] = None
+    for run_id, backends, where, _ in DROP_RUNS:
+        drop = df["run_id"] == run_id
+        if backends:
+            drop &= df["backend"].isin(backends)
+        for col, val in where.items():
+            drop &= df[col].isin(val if isinstance(val, list) else [val])
+        df = df[~drop]
+    warm = pd.Series(list(zip(df["workload"], df["variant"])), index=df.index).isin(WARM_VARIANTS)
+    df.loc[warm, "cache_state"] = "warm"
     df["profile"] = df["profile"].fillna("-")
     df["threads"] = df["threads"].fillna(1).astype(int)
     # Writes through an rclone mount return as soon as the local VFS cache has the data; the
@@ -143,11 +164,16 @@ def breakeven(s: pd.DataFrame) -> pd.DataFrame:
         return float(q["median"].iloc[0]) if len(q) else np.nan
     for tier in s["tier"].unique():
         st = s[s.tier == tier]
-        w_proj = med(BASELINE, "W2", "seq-write-1m", "fio-pool")
+        # Copy cost: a 1 GiB stream for large files, but W9's copy of 100 KiB files through the mount for
+        # small files (project: ~2.9 vs ~151 MB/s). Using the stream speed for both made copying small
+        # files to project storage look ~50x cheaper than it is.
+        w_large = med(BASELINE, "W2", "seq-write-1m", "fio-pool")
+        w_small = _mbs(st, BASELINE, "W9", "mount-small", "small-files", 1)
         cases = [("large sequential files", "W1", "seq-read-1m", "fio-pool", 1, "throughput_mb_s"),
                  ("small files, 1 reader", "W6", "epoch-1w", "small-files", 1, "throughput_mb_s"),
                  ("small files, 8 readers", "W6", "epoch-8w", "small-files", 8, "throughput_mb_s")]
         for label, wl, var, prof, th, _ in cases:
+            w_proj = w_small if prof == "small-files" else w_large
             # W6 headline is files/s; convert to MB/s via the raw rows' throughput column
             r_proj_mbs = _mbs(st, BASELINE, wl, var, prof, th)
             for b in ("azure", "polybox"):

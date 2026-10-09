@@ -1,0 +1,44 @@
+{
+ "backend": "polybox",
+ "tag": "20261005T200003-control-4x268435456",
+ "mode": "control",
+ "files": [
+  {
+   "rel": "durability/20261005T200003-control-4x268435456/f-00.bin",
+   "bytes": 268435456,
+   "sha256": "02d5be31c16e48ad3ab57344652968a3b3ab7f3b1d4e22b30f5a09c5bdaeba1e",
+   "closed_at": 1791230405.6657543,
+   "write_s": 1.072,
+   "fsync_s": 0.0,
+   "fsync_err": ""
+  },
+  {
+   "rel": "durability/20261005T200003-control-4x268435456/f-01.bin",
+   "bytes": 268435456,
+   "sha256": "1bbd7ae0aa87fd53567d978c6e64b410acc56c18c921ed5fc065961ea1d11f51",
+   "closed_at": 1791230407.420887,
+   "write_s": 1.66,
+   "fsync_s": 0.0,
+   "fsync_err": ""
+  },
+  {
+   "rel": "durability/20261005T200003-control-4x268435456/f-02.bin",
+   "bytes": 268435456,
+   "sha256": "447045530acda71e2e7fe9fa4430affc34ac9b177ace3d44a185d9e81ecb2882",
+   "closed_at": 1791230408.962894,
+   "write_s": 1.503,
+   "fsync_s": 0.001,
+   "fsync_err": ""
+  },
+  {
+   "rel": "durability/20261005T200003-control-4x268435456/f-03.bin",
+   "bytes": 268435456,
+   "sha256": "7896ec3f32ee249a37fcec3e9d916b08a848792b6cf93ada5aa36df13618cc32",
+   "closed_at": 1791230410.8136988,
+   "write_s": 1.669,
+   "fsync_s": 0.0,
+   "fsync_err": ""
+  }
+ ],
+ "session_id": "elisabet-cap-52039ca53e6c-0"
+}
